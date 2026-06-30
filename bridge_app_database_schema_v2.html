@@ -58,7 +58,8 @@ const { svg } = await mermaid.render('erd-svg', `erDiagram
   CLUB{
     int club_id PK
     string club_name
-    int board_number
+    int board_count
+    int access_pin
   }
 
   BOARDS {
