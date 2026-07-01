@@ -1,0 +1,533 @@
+:root {
+    /* =========================================
+       1. GLOBÁLIS VÁLTOZÓK (Világos téma)
+       ========================================= */
+
+    /* --- Háttér és felületek --- */
+    --ink: #f4f6f8;
+    /* Az oldal legalsó, fő háttérszíne (nagyon halvány szürke) */
+    --surface: #ffffff;
+    /* A kártyák (slip) és panelek tiszta fehér színe (kiemelkedik a háttérből) */
+    --surface-raised: #f1f5f6;
+    /* Halvány szürke háttér az alap gomboknak és kiemelt mezőknek */
+
+    /* --- Vonalak és szegélyek --- */
+    --rule: #cbd5e1d9;
+    /* Erősebb szürke körvonal (kártyák, beviteli mezők, gombok határai) */
+    --rule-soft: #e2e8f0;
+    /* Halványabb vonal elválasztókhoz (pl. a topbar alatti vonal) */
+
+    /* --- Szövegszínek --- */
+    --paper: #0f172a;
+    /* Fő szövegszín, majdnem fekete a tökéletes olvashatóságért */
+    --slate: #475569;
+    /* Másodlagos szövegszín (pl. leírásokhoz, inaktív ikonokhoz) */
+    --slate-dim: #64748b;
+    /* Harmadlagos, halványabb szín (címkék, "eyebrow" feliratok) */
+
+    /* --- Tematikus színek (Márka és funkciók) --- */
+    /* Zöld: Bridge asztalok / Játékosok színe (a zöld posztóra utal) */
+    --felt: #16a34a;
+    --felt-bright: #15803d;
+    --felt-dim: #dcfce7;
+
+    /* Kék: Direktor (versenybíró) és a fő CTA (Call to Action) gombok színe */
+    --director: #2563eb;
+    --director-dim: #dbeafe;
+
+    /* Piros: Hibák, figyelmeztetések, vagy bukott (down) eredmények színe */
+    --signal: #dc2626;
+    --signal-dim: #fee2e2;
+
+    /* Arany/Barna: Semlegesebb kiemelés (pl. NT - Szanzadu, vagy a logó pikk jele) */
+    --gold: #b45309;
+    --gold-dim: #fef3c7;
+
+    /* --- Formák és lekerekítések --- */
+    --radius: 14px;
+    /* Nagyobb elemek (kártyák, panelek) sarkainak lekerekítése */
+    --radius-sm: 9px;
+    /* Kisebb elemek (gombok, beviteli mezők) lekerekítése */
+
+    /* --- Betűtípusok (A HTML-ben importált Google Fonts alapján) --- */
+    --font-display: serif;
+    /* Címsorokhoz (Később Fraunces-re érdemes cserélni) */
+    --font-body: system-ui, sans-serif;
+    /* Folyószöveghez (Később Inter-re érdemes cserélni) */
+    --font-mono: monospace;
+    /* Kódokhoz, számokhoz, jelvényekhez (pl. IBM Plex Mono) */
+}
+
+/* =========================================
+   2. ALAPBEÁLLÍTÁSOK (Reset & Base)
+   ========================================= */
+
+* {
+    /* A padding és a border nem növeli a dobozok méretét, hanem "befelé" foglal helyet. 
+       Ettől nem esik szét a dizájn, ha mondjuk 100% szélességet adsz valaminek. */
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    /* Böngésző alap margóinak eltüntetése */
+    padding: 0;
+    background: var(--ink);
+    /* Háttérszín a változóból */
+    color: var(--paper);
+    /* Alapértelmezett szövegszín */
+    font-family: var(--font-body);
+    /* Alapértelmezett betűtípus */
+    -webkit-font-smoothing: antialiased;
+    /* Élesebb, tisztább betűk (Mac/iOS rendszereken látványos) */
+}
+
+body {
+    min-height: 100vh;
+    /* A háttér legalább a képernyő 100%-áig érjen */
+}
+
+a {
+    color: inherit;
+    /* A linkek nem lesznek automatikusan kékek, felveszik a szülő szövegszínét */
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    /* Félkövér vastagság */
+    margin: 0 0 4px;
+    /* Csak alul van margója, hogy közel maradjon a tartalomhoz */
+    letter-spacing: -0.01em;
+    /* Picit összehúzza a betűket a profibb megjelenésért */
+}
+
+.mono {
+    font-family: var(--font-mono);
+    /* Bármire ráteheted ezt az osztályt, amit írógép-betűvel akarsz */
+}
+
+/* =========================================
+   3. FŐ ELRENDEZÉS (Layout Shell)
+   ========================================= */
+
+.app-shell {
+    max-width: 560px;
+    /* A tartalom nem nyúlik szét, mobilszerű / kártyás marad nagy monitoron is */
+    margin: 0 auto;
+    /* Középre igazítja a dobozt vízszintesen */
+    min-height: 100vh;
+    padding: 20px 18px 48px;
+    /* Térközök: felül 20px, oldalt 18px, alul 48px */
+    position: relative;
+}
+
+.app-shell.wide {
+    max-width: 980px;
+    /* Egy módosító osztály szélesebb nézethez (pl. a Director asztal-táblázataihoz) */
+}
+
+/* =========================================
+   4. FEJLÉC (Topbar & Branding)
+   ========================================= */
+
+.topbar {
+    display: flex;
+    /* Flexbox: egymás mellé rendezi a bal és jobb oldalt */
+    align-items: center;
+    /* Függőlegesen középre igazítja a tartalmat */
+    justify-content: space-between;
+    /* Maximális távolság a bal logó és a jobb jelvény között */
+    padding: 6px 2px 22px;
+    border-bottom: 1px solid var(--rule-soft);
+    /* Finom választóvonal a fejléc alatt */
+    margin-bottom: 22px;
+    /* Távolság a fejléc és az alatta lévő tartalom között */
+}
+
+.topbar .brand {
+    display: flex;
+    align-items: baseline;
+    /* A szövegek "alsó vonalát" (baseline) igazítja egy síkba */
+    gap: 10px;
+    /* Távolság az ikon és a felirat között */
+}
+
+.topbar .brand .suit-mark {
+    font-size: 1.3rem;
+    color: var(--gold);
+    /* A pikk szimbólum színe */
+}
+
+.topbar h1 {
+    font-size: 1.15rem;
+}
+
+.topbar .eyebrow {
+    /* Az apró felirat a cím alatt (pl. "Director setup") */
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    /* Nagyon ritkított, levegős betűköz */
+    text-transform: uppercase;
+    /* Csupa nagybetűs */
+    color: var(--slate-dim);
+}
+
+/* =========================================
+   5. JELVÉNYEK (Badges)
+   ========================================= */
+
+.badge {
+    display: inline-block;
+    /* Dobozként viselkedik, de nem töri meg a sort */
+    line-height: 1;
+    /* Pontosan középre zárja a szöveget a dobozban */
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    /* Szöveg körüli hely (belső margó) */
+    border-radius: 999px;
+    /* Maximális lekerekítés = pirula forma */
+    border: 1px solid var(--rule);
+    color: var(--slate);
+    white-space: nowrap;
+    /* Megakadályozza a sortörést (pl. a "No session" egyben marad) */
+}
+
+/* Speciális színek a módosító osztályokkal */
+.badge.director {
+    color: var(--director);
+    border-color: var(--director-dim);
+    background: var(--director-dim);
+}
+
+.badge.felt {
+    color: var(--felt-bright);
+    border-color: var(--felt-dim);
+}
+
+/* =========================================
+   6. SZEREPVÁLASZTÓ KÁRTYÁK (Kezdőlap)
+   ========================================= */
+
+.role-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* 2 azonos szélességű oszlop */
+    gap: 14px;
+    /* Távolság a kártyák között */
+    margin-top: 24px;
+}
+
+/* Reszponzivitás: 520px képernyőszélesség alatt (telefonok) 1 oszlopos lesz */
+@media (max-width: 520px) {
+    .role-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.role-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 26px 20px;
+    text-align: left;
+    cursor: pointer;
+    /* Mutatja, hogy kattintható */
+    text-decoration: none;
+    /* Ne húzza alá a szöveget benne */
+    display: block;
+    /* Kitölti a teljes grid cellát */
+    transition: border-color 0.15s ease, transform 0.1s ease;
+    /* Finom animáció az egerészéshez (hover) */
+}
+
+.role-card:hover {
+    transform: translateY(-2px);
+    /* Egerészésnél 2px-t felemelkedik a kártya */
+}
+
+.role-card.director-role:hover {
+    border-color: var(--director);
+    /* Kék keret hovernél */
+}
+
+.role-card.table-role:hover {
+    border-color: var(--felt);
+    /* Zöld keret hovernél */
+}
+
+.role-card .glyph {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 14px;
+    display: block;
+    /* Hogy a szöveg alá kerüljön */
+}
+
+.role-card.director-role .glyph {
+    color: var(--director);
+}
+
+.role-card.table-role .glyph {
+    color: var(--felt-bright);
+}
+
+.role-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 6px;
+}
+
+/* =========================================
+   7. ADATBEVITELI KÁRTYA (Slip)
+   ========================================= */
+
+.slip {
+    background: var(--surface);
+    /* Fehér panel */
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 22px;
+    margin-bottom: 16px;
+    position: relative;
+    /* Két árnyék maradt a kódodban, a böngésző a másodikat fogja használni.
+     Az első egy nagyon halvány, a második egy "papírszerűbb" világos árnyék. */
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.02) inset, 0 12px 30px -18px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+.slip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.slip-header .label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--slate-dim);
+    margin-bottom: 3px;
+}
+
+.slip-header .value {
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+/* =========================================
+   8. ŰRLAP ELEMEK ÉS BEVITELI MEZŐK
+   ========================================= */
+
+label {
+    display: block;
+    /* Hogy az input felett legyen */
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--slate-dim);
+    margin-bottom: 7px;
+}
+
+/* Minden beviteli mező alapstílusa */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    /* Kitölti a rendelkezésre álló helyet */
+    background: var(--ink);
+    /* Halványszürke hátteret kapnak, hogy elkülönüljenek a fehér .slip-től */
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-sm);
+    color: var(--paper);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 12px 13px;
+    /* Kényelmes méret ujjal való bökésekhez */
+}
+
+/* Fókusz állapot (amikor belekattintasz egy mezőbe) */
+input:focus,
+select:focus,
+button:focus-visible {
+    outline: 2px solid var(--director);
+    /* Egyértelmű kék körvonal mutatja, hol tartasz */
+    outline-offset: 1px;
+}
+
+.field {
+    margin-bottom: 18px;
+}
+
+/* Egy beviteli mező + a címkéje (label) egy "field" blokk */
+
+.field-row {
+    display: flex;
+    gap: 14px;
+}
+
+/* Több mező egymás mellé rakásához (pl. asztalok és boardok száma) */
+.field-row .field {
+    flex: 1;
+}
+
+/* A mezők egyenlő szélességen osztoznak a soron belül */
+
+/* --- A (+ / -) léptető gombok (Stepper) --- */
+.stepper {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    /* Ha a gomb túllógna a kerekített sarkon, levágja */
+    background: var(--ink);
+}
+
+.stepper button {
+    background: var(--surface-raised);
+    border: none;
+    /* A keretet a .stepper adja, a gomboknak nem kell */
+    color: var(--paper);
+    width: 42px;
+    height: 46px;
+    /* Szép, vastag gombok, hogy könnyű legyen eltalálni */
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.stepper output {
+    flex: 1;
+    /* Kitölti a két gomb közti helyet */
+    text-align: center;
+    /* Középre zárt szám */
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+}
+
+/* =========================================
+   9. GOMBOK (Buttons)
+   ========================================= */
+
+.btn {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.92rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--rule);
+    background: var(--surface-raised);
+    /* Alapértelmezett másodlagos gomb stílus */
+    color: var(--paper);
+    padding: 12px 18px;
+    cursor: pointer;
+    transition: transform 0.08s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.btn:hover {
+    border-color: var(--slate-dim);
+}
+
+/* Sötétedik a szegély, ha fölé viszed az egeret */
+.btn:active {
+    transform: scale(0.98);
+}
+
+/* Kattintáskor a gomb egy picit "benyomódik" optikailag */
+
+/* Elsődleges akció (Kék gomb, pl. Create session) */
+.btn.primary {
+    background: var(--director);
+    border-color: var(--director);
+    color: #ffffff;
+}
+
+.btn.primary:hover {
+    background: #6f92ff;
+}
+
+/* Zöld gomb (pl. az asztaloknál) */
+.btn.felt {
+    background: var(--felt);
+    border-color: var(--felt);
+    color: #ffffff;
+}
+
+.btn.felt:hover {
+    background: var(--felt-bright);
+}
+
+/* "Szellem" gomb (Nincs háttere, csak felirata, pl. Reset) */
+.btn.ghost {
+    background: transparent;
+    color: var(--slate);
+}
+
+.btn.block {
+    width: 100%;
+    /* Kitölti a teljes rendelkezésre álló szélességet */
+    display: block;
+    text-align: center;
+}
+
+.btn:disabled {
+    opacity: 0.4;
+    /* Ha le van tiltva a gomb, elhalványul */
+    cursor: not-allowed;
+}
+
+.btn-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    /* Ha nem férnek el a gombok egymás mellett, sort törnek */
+}
+
+/* =========================================
+   10. LÁBLÉC ÉS VISSZA GOMB
+   ========================================= */
+
+footer.notice {
+    margin-top: 26px;
+    font-size: 0.78rem;
+    color: var(--slate-dim);
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* A speciális, idősbarát "vissza" gomb (Ghost button stílus) */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--paper);
+    /* Kontrasztos sötét szöveg */
+    font-weight: 500;
+    text-decoration: none;
+    /* Nincs aláhúzás */
+    font-size: 0.88rem;
+    margin-bottom: 14px;
+    padding: 6px 12px;
+    /* Kényelmes kattintási felület (hitbox) */
+    background: var(--surface-raised);
+    /* Nagyon halvány szürke háttér doboz */
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--rule-soft);
+    /* Halvány, elegáns keret */
+    transition: all 0.15s ease;
+}
+
+.back-link:hover {
+    background: var(--rule-soft);
+    /* Kicsit sötétedik az egér alatt */
+    border-color: var(--rule);
+}

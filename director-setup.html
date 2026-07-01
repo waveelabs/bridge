@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Director setup</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="app-shell">
+
+        <a href="index.html" class="back-link">back</a>
+
+        <div class="topbar">
+            <div class="brand">
+                <span class="suit-mark">♠</span>
+                <div>
+                    <h1>New Session</h1>
+                    <div class="eyebrow">Director setup</div>
+                </div>
+            </div>
+            <span class="badge director">Director</span>
+        </div>
+
+        <div class="slip">
+
+            <div class="field">
+                <label for="sessionName">Session name [optional]<span></span></label>
+                <input type="text" id="sessionName" placeholder="Be creative ^.^">
+
+            </div>
+            <div class="field">
+                <label>Date</label>
+                <input type="date" id="sessionDate">
+            </div>
+
+            <div class="field-row">
+                <div class="field">
+                    <label>Number of tables</label>
+                    <div class="stepper">
+                        <button type="button" data-step="-1" data-target="tableCount">-</button>
+                        <output id="tableCount">4</output>
+
+                        <button type="button" data-step="1" data-target="tableCount" data-max="15">+</button>
+                    </div>
+                </div>
+
+
+
+                <div class="field">
+                    <label>Number of boards</label>
+                    <div class="stepper">
+                        <button type="button" data-step="-1" data-target="boardCount">-</button>
+                        <output id="boardCount">5</output>
+                        <button type="button" data-step="1" data-target="boardCount" data-max="24">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn primary block" id="createBtn">Create session</button>
+        </div>
+    </div>
+
+    <script>
+
+        //
+        document.querySelectorAll('.stepper button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = document.getElementById(btn.dataset.target);
+                const step = Number(btn.dataset.step);
+                let current = Number(target.textContent);
+
+                let next = current + step;
+
+                // Minimum limit (Soha ne menjen 1 alá)
+                if (next < 1) next = 1;
+
+                // Maximum limit (Kiolvassa a HTML data-max értékét, ha van)
+                if (btn.dataset.max) {
+                    const max = Number(btn.dataset.max);
+                    if (next > max) next = max;
+                }
+
+                target.textContent = next;
+            });
+        });
+    </script>
+</body>
+
+</html>
