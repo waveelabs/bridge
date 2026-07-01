@@ -45,7 +45,7 @@ const { svg } = await mermaid.render('erd-svg', `erDiagram
     date played_on
     int table_count
     int board_count
-    string status
+    enum status
   }
   PAIRS {
     int pair_number PK
@@ -65,8 +65,9 @@ const { svg } = await mermaid.render('erd-svg', `erDiagram
   BOARDS {
     int board_id PK
     int tournament_id FK
-    string dealer
-    string vulnerability
+    enum dealer
+    enum vulnerability_ns
+    enum vulnerability_ew
   }
   BOARD_RESULTS {
     int id PK
@@ -75,8 +76,8 @@ const { svg } = await mermaid.render('erd-svg', `erDiagram
     int pair_ns_id FK
     int pair_ew_id FK
     int contract_amount
-    string contract_suite
-    string declarer
+    enum contract_suite
+    enum declarer
     int doubled
     int tricks_result
     int ns_score
