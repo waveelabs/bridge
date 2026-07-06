@@ -4,41 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BridgePal</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>BridgePal ♠️♥️♦️♣️</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-    <div class="app-shell">
 
-        <div class="topbar">
-            <div class="brand">
-                <span class="suit-mark">♠</span>
-                <div>
-                    <h1>BridgePal</h1>
-                    <div class="eyebrow">Zebegény</div>
-                </div>
-            </div>
+    <div class="container">
+        <h1>BridgePal ♠️♥️♦️♣️</h1>
 
-            <span class="badge" id="statusBadge">No session</span>
+        <div class="card" style="border-color: #1857b0; background-color: #f0f5fa;">
+            <h2>Current status:</h2>
+            <p id="statusMessage" style="font-weight: bold; font-size: 24px;">Checking database...</p>
         </div>
 
-        <div class="role-grid">
-            <a href="director-setup.html" class="role-card director-role">
-                <span class="glyph">D</span>
-                <h3>Director</h3>
-            </a>
-            <a href="table.html" class="role-card table-role">
-                <span class="glyph">T</span>
-                <h3>Table</h3>
-            </a>
+
+        <div class="card">
+            <h2>Director</h2>
+            <a href="director-setup.html" id="directorLink" class="btn">Director setup ⚙️</a>
         </div>
 
-        <footer class="notice">
-            built with ❤️ by wavee.labs 🌊
-        </footer>
+        <div class="card">
+            <h2>Table</h2>
+            <a href="table.html" id="tableLink" class="btn" style="background-color: #2b7a0b;">Table entry 📝 </a>
+        </div>
 
+        <div style="font-size: smaller; text-align: center;">
+            made with ♥️ by wavee.labs 🌊
+        </div>
     </div>
+
+    <script src="js/mock-data.js"></script>
+
+    <script>
+        let db = getDatabase();
+        let statusMessage = document.getElementById("statusMessage");
+        let directorLink = document.getElementById("directorLink");
+        let tableLink = document.getElementById("tableLink");
+
+
+        if (db === null) {
+            tableLink.style.backgroundColor = "gray";
+            tableLink.removeAttribute("href");
+            tableLink.style.pointerEvents = "none";
+            statusMessage.innerText = "No session is currently running 😿";
+        }
+        else {
+            statusMessage.innerText = db.name + " is active 🎉: " + db.tableCount + " tables, " + db.boardCount + " boards.";
+            directorLink.innerText = "Dashboard 📊";
+            directorLink.href = "director-dashboard.html";
+        }
+    </script>
+
 </body>
 
 </html>

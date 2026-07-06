@@ -4,28 +4,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table setup</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Table entry 📝</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-    <div class="app-shell">
+    <div class="container">
+        <h1>Table entry 📝</h1>
 
-        <a href="index.html" class="back-link">back</a>
+        <div class="card">
+            <h2>Table details</h2>
 
-        <div class="topbar">
-            <div class="brand">
-                <span class="suit-mark">♠</span>
-                <div>
-                    <h1 id="pageTitle">Table Entry</h1>
-                    <div class="eyebrow" id="pageEyebrow">Pick your table</div>
-                </div>
-            </div>
+            <label for="tableNum"><strong>Table Number: </strong></label>
+            <input type="number" id="tableNum" min="1" value="1">
 
-            <span class="badge felt" id="tableBadge" style="display:none;"></span>
+            <label for="boardNum"><strong>Board Number: </strong></label>
+            <input type="number" id="boardNum" min="1" value="1">
+
+            <label for="nsPair"><strong>N-S Pair Number: </strong></label>
+            <input type="number" id="nsPair" min="1">
+
+            <label for="ewPair"><strong>E-W Pair Number: </strong></label>
+            <input type="number" id="ewPair" min="1">
+        </div>
+
+        <div class="card">
+            <h2>Contract details</h2>
+            <label for="contractLevel"><strong>Level (1-7):</strong></label>
+            <select id="contractLevel">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
+
+
+            <label for="contractSuit"><strong>Suit:</strong></label>
+            <select id="contractSuit">
+                <option value="C">♣️</option>
+                <option value="D">♦️</option>
+                <option value="H">♥️</option>
+                <option value="S">♠️</option>
+                <option value="NT">No Trump (NT)</option>
+            </select>
+
+            <label for="contractDoubled"><strong>Doubled:</strong></label>
+            <select id="contractDoubled">
+                <option value="none">None</option>
+                <option value="X">Doubled</option>
+                <option value="XX">Redoubled</option>
+            </select>
+
+            <label for="declarer"><strong>Declarer:</strong></label>
+            <select id="declarer">
+                <option value="N">North</option>
+                <option value="E">East</option>
+                <option value="S">South</option>
+                <option value="W">West</option>
+            </select>
+
+            <label for="isVulnerable"><strong>Is Declarer Vulnerable?</strong></label>
+            <select id="isVulnerable">
+                <option value="no">No (Mansban)</option>
+                <option value="yes">Yes (Bellben)</option>
+            </select>
+        </div>
+
+        <div class="card">
+            <h2>Final result</h2>
+            <label for="tricksTaken"><strong>Total tricks taken (0-13)</strong></label>
+            <input type="number" id="tricksTaken" min="0" max="13">
+        </div>
+
+        <div id="formMessage" class="warning-box" style="display: none; margin-bottom: 20px;"></div>
+
+        <button id="submitBtn" class="btn" style="background-color: #2b7a0b;">Submit result 📨</button>
+        <a href="index.html" class="btn">Go Back Home 🏠</a>
+
+        <div style="font-size: smaller; text-align: center;">
+            made with ♥️ by wavee.labs 🌊
         </div>
 
     </div>
+
+    <script src="js/mock-data.js"></script>
+
+    <script>
+
+        // submit button magic
+        let submitBtn = document.getElementById("submitBtn");
+        submitBtn.addEventListener("click", onSubmitClick);
+
+        function showMessage(text, isError) {
+            let msgBox = document.getElementById("formMessage");
+            msgBox.innerText = text;
+            msgBox.style.display = "block"; // jelenjen meg
+
+            if (isError) {
+                //red
+                msgBox.style.borderColor = "#cc0000";
+                msgBox.style.backgroundColor = "#fff0f0";
+                msgBox.style.color = "#cc0000";
+            }
+            else {
+                //green
+                msgBox.style.borderColor = "#2b7a0b";
+                msgBox.style.backgroundColor = "#f0fdf0";
+                msgBox.style.color = "#2b7a0b";
+            }
+        }
+
+        function onSubmitClick() {
+
+            // database
+            let db = getDatabase();
+            if (db === null) {
+                showMessage("There is no valid session yet!", true);
+                return;
+            }
+
+            // let'g gather the daaaaata
+            let resultData = {
+                table: document.getElementById("tableNum").value,
+                board: document.getElementById("boardNum").value,
+                pairNS: document.getElementById("nsPair").value,
+                pairEW: document.getElementById("ewPair").value,
+                level: document.getElementById("contractLevel").value,
+                suit: document.getElementById("contractSuit").value,
+                doubled: document.getElementById("contractDoubled").value,
+                declarer: document.getElementById("declarer").value,
+                isVulnerable: document.getElementById("isVulnerable").value,
+                tricks: document.getElementById("tricksTaken").value
+            }
+
+            //validáció
+            if (resultData.pairNS === "" || resultData.pairEW === "" || resultData.tricks === "") {
+                showMessage("Please fill in the N-S Pair, E-W Pair, and Total tricks taken!", true);
+                return;
+            }
+
+            // meg kéne nézni, hogy ez a table és board combo létezik-e
+
+            let foundMistake = false;
+            for (let i = 0; i < db.results.length; i++) {
+                let pastGame = db.results[i];
+
+                if (pastGame.table === resultData.table && pastGame.board === resultData.board) {
+                    //felülírja, ha leokézzák (sok figyelmeztetéssel)
+                    let answer = window.confirm("⚠️ You are about to overwrite existing data! Continue? ⚠️");
+                    if (answer) {
+                        db.results[i] = resultData;
+                        foundMistake = true;
+                        break;
+                    }
+                    else {
+                        // egyébként csak kilépünk
+                        return;
+                    }
+                }
+            }
+
+            if (foundMistake === true) {
+                //felül akarja írni
+                saveDatabase(db);
+                showMessage("Mistake fixed! ✅ Board " + resultData.board + "; table" + resultData.table + " has been updated successfully! 🎉", false);
+            }
+            else {
+                //sima mentés
+                db.results.push(resultData);
+                saveDatabase(db);
+                showMessage("Board " + resultData.board + "; table" + resultData.table + " has been submitted successfully! 🎉", false);
+
+                // kövi board a kényelemért
+                document.getElementById("boardNum").value = parseInt(resultData.board) + 1;
+            }
+
+            //letisztítjuk a formot
+            document.getElementById("tricksTaken").value = "";
+
+            //legörgetünk
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+
+        // recent score logika itt lehetne
+
+    </script>
 
 </body>
 

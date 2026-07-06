@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard 📊</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+
+<body>
+
+    <div class="container">
+        <h1 id="dashboardTitle">Dashboard 📊</h1>
+
+        <div class="card" id="sessionInfo" style="background-color: #f0f5fa; border-color: #1857b0;">
+            <p>Loading session data...</p>
+        </div>
+
+        <button id="calculateBtn" class="btn" style="background-color: #2b7a0b; margin-bottom: 25px;">
+            Calculate Tournament Winners 🧮
+        </button>
+
+        <div id="standingsSection" style="display: none;">
+            <h2>Tournament Standings</h2>
+
+            <div class="card" style="border-color: #2b7a0b; background-color: #f0fdf0;">
+                <h3 style="color: #2b7a0b; margin-top: 0;">N-S Winners</h3>
+                <div id="nsStandings"></div>
+            </div>
+
+            <div class="card" style="border-color: #1857b0; background-color: #f0f5fa;">
+                <h3 style="color: #1857b0; margin-top: 0;">E-W Winners</h3>
+                <div id="ewStandings"></div>
+            </div>
+
+            <hr style="border: 2px solid #cccccc; margin-bottom: 25px;">
+        </div>
+
+
+        <h2>Incoming Results</h2>
+        <div id="resultsList"></div>
+
+        <div class="warning-box" style="margin-top: 40px;">
+            <h2 style="color: #cc0000; margin-top: 0;">Reset session</h2>
+            <p>Click to delete all session data</p>
+            <button id="resetBtn" class="btn" style="background-color: #cc0000; margin-bottom: 0;">Reset
+                Session</button>
+        </div>
+
+        <a href="index.html" class="btn">Go Back Home 🏠</a>
+
+        <div style="font-size: smaller; text-align: center;">
+            made with ♥️ by wavee.labs 🌊
+        </div>
+    </div>
+
+    <script src="js/mock-data.js"></script>
+
+    <script>
+
+        //setup
+
+        let db = getDatabase();
+
+        if (db === null) {
+            document.getElementById("dashboardTitle").innerText = "No session is currently running 😿";
+            document.getElementById("resetBtn").disabled = true;
+            document.getElementById("calculateBtn").style.display = "none";
+        }
+        else {
+            document.getElementById("dashboardTitle").innerText = "Dashboard: " + db.name;
+            document.getElementById("sessionInfo").innerHTML =
+                "<p><strong>Total tables: </strong>" + db.tableCount + "</p>" +
+                "<p><strong>Total boards: </strong>" + db.boardCount + "</p>" +
+                "<p><strong>Scores submitted: </strong>" + db.results.length + " / " + db.tableCount * db.boardCount + "</p>"
+        }
+
+        let resultsContainer = document.getElementById("resultsList");
+
+        if (db.results.length === 0) {
+            resultsContainer.innerHTML = "<div class='card'><p>No scores have been submitted yet!</p></div>";
+            document.getElementById("calculateBtn").disabled = true;
+        }
+        else {
+            renderIncomingResults();
+        }
+
+        // render results
+        function renderIncomingResults() {
+            let resultsContainer = document.getElementById("resultsList");
+            let htmlToInsert = "";
+
+            for (let i = 0; i < db.results.length; i++) {
+                let game = db.results[i];
+
+                let doubledText = "";
+                if (game.doubled !== "none") {
+                    doubledText = " " + game.doubled;
+                }
+
+                //html kartya
+                htmlToInsert += "<div class='card'>";
+                htmlToInsert += "<h3 style='margin-top: 0; color: #1857b0'>Table " + game.table + " Board " + game.board + "</h3>";
+                htmlToInsert += "<p><strong>N-S Pair " + game.pairNS + "</strong> vs <strong>E-W Pair " + game.pairEW + "</strong></p>";
+                htmlToInsert += "<p><strong>Contract:</strong>" + game.level + game.suit + doubledText + " declarer: " + game.declarer + "</p>";
+                htmlToInsert += "<p><strong>Total tricks: </strong>" + game.tricks + "</p>";
+                htmlToInsert += "</div>";
+            }
+
+            resultsContainer.innerHTML = htmlToInsert;
+        }
+
+        //CALCULATE SCORE
+
+        //CALCULATE MATCHPOINTS
+
+        //delete data
+        document.getElementById("resetBtn").addEventListener("click", onResetClick);
+
+        function onResetClick() {
+            let sure = confirm("Are you sure you want to reset this session? All scores will be lost!");
+            if (sure) {
+                clearDatabase();
+                window.location.href = "index.html";
+            }
+        }
+
+    </script>
+
+
+</body>
+
+</html>

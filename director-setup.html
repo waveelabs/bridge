@@ -4,88 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Director setup</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Director setup ⚙️</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-    <div class="app-shell">
+    <div class="container">
+        <h1>Director setup ⚙️</h1>
 
-        <a href="index.html" class="back-link">back</a>
+        <div class="card">
+            <h2>Session details</h2>
 
-        <div class="topbar">
-            <div class="brand">
-                <span class="suit-mark">♠</span>
-                <div>
-                    <h1>New Session</h1>
-                    <div class="eyebrow">Director setup</div>
-                </div>
-            </div>
-            <span class="badge director">Director</span>
+            <label for="sessionName"><strong>Session Name:</strong></label>
+            <input type="text" id="sessionName" value="My Session">
+
+            <label for="tableCount"><strong>Number of Tables:</strong></label>
+            <input type="number" id="tableCount" min="1" value="4">
+
+            <label for="boardCount"><strong>Number of Boards:</strong></label>
+            <input type="number" id="boardCount" min="1" max="24" value="4">
         </div>
 
-        <div class="slip">
+        <button id="createBtn" class="btn" style="background-color: #2b7a0b;">Create Session 🪄</button>
+        <a href="index.html" class="btn">Go Back Home 🏠</a>
 
-            <div class="field">
-                <label for="sessionName">Session name [optional]<span></span></label>
-                <input type="text" id="sessionName" placeholder="Be creative ^.^">
-
-            </div>
-            <div class="field">
-                <label>Date</label>
-                <input type="date" id="sessionDate">
-            </div>
-
-            <div class="field-row">
-                <div class="field">
-                    <label>Number of tables</label>
-                    <div class="stepper">
-                        <button type="button" data-step="-1" data-target="tableCount">-</button>
-                        <output id="tableCount">4</output>
-
-                        <button type="button" data-step="1" data-target="tableCount" data-max="15">+</button>
-                    </div>
-                </div>
-
-
-
-                <div class="field">
-                    <label>Number of boards</label>
-                    <div class="stepper">
-                        <button type="button" data-step="-1" data-target="boardCount">-</button>
-                        <output id="boardCount">5</output>
-                        <button type="button" data-step="1" data-target="boardCount" data-max="24">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <button class="btn primary block" id="createBtn">Create session</button>
+        <div style="font-size: smaller; text-align: center;">
+            made with ♥️ by wavee.labs 🌊
         </div>
     </div>
 
+    <script src="js/mock-data.js"></script>
+
     <script>
+        let createButton = document.getElementById("createBtn");
+        createButton.addEventListener("click", onCreateClick);
 
-        //
-        document.querySelectorAll('.stepper button').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const target = document.getElementById(btn.dataset.target);
-                const step = Number(btn.dataset.step);
-                let current = Number(target.textContent);
+        function onCreateClick() {
+            let name = document.getElementById("sessionName").value;
+            let tables = document.getElementById("tableCount").value;
+            let boards = document.getElementById("boardCount").value;
 
-                let next = current + step;
+            if (name.trim() === "") {
+                name = "Untitled Session";
+                //robinak valami alap név h ne kapjon agyfaszt
+            }
 
-                // Minimum limit (Soha ne menjen 1 alá)
-                if (next < 1) next = 1;
-
-                // Maximum limit (Kiolvassa a HTML data-max értékét, ha van)
-                if (btn.dataset.max) {
-                    const max = Number(btn.dataset.max);
-                    if (next > max) next = max;
-                }
-
-                target.textContent = next;
-            });
-        });
+            createTournament(name, tables, boards);
+            alert("Session created successfully! 🎉");
+            window.location.href = "director-dashboard.html";
+        }
     </script>
 </body>
 
