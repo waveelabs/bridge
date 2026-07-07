@@ -68,7 +68,7 @@
         }
         else {
             document.getElementById("sessionInfo").innerHTML =
-                "<p><strong>Asztalok: </strong>" + db.tableCount + "\t<strong>Leosztások: </strong>" + db.boardCount + "</p>" +
+                "<p><strong>Asztalok: </strong>" + db.tableCount + "\t<strong>Tokok: </strong>" + db.boardCount + "</p>" +
                 "<p><strong>Beküldött eredmények: </strong>" + db.results.length + " / " + db.tableCount * db.boardCount + "</p>"
         }
 
@@ -97,7 +97,7 @@
 
                 //html kartya
                 htmlToInsert += "<div class='card'>";
-                htmlToInsert += "<h3 style='margin-top: 0; color: #1857b0'>" + game.table + ". asztal, " + game.board + ". leosztás</h3>";
+                htmlToInsert += "<h3 style='margin-top: 0; color: #1857b0'>" + game.table + ". asztal, " + game.board + ". tok</h3>";
                 htmlToInsert += "<p><strong>N-S pár " + game.pairNS + "</strong> vs <strong>E-W pár " + game.pairEW + "</strong></p>";
                 htmlToInsert += "<p><strong>Licit: </strong>" + game.level + game.suit + doubledText + " felvevő: " + game.declarer + "</p>";
                 htmlToInsert += "<p><strong>Ütések összesen: </strong>" + game.tricks + "</p>";
