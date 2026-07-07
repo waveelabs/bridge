@@ -35,9 +35,7 @@
                 </div>
 
             </div>
-        </div>
 
-        <div class="card">
             <div class="form-row">
                 <div class="form-col">
                     <label for="contractLevel"><strong>Szint (1-7):</strong></label>
@@ -55,10 +53,10 @@
                 <div class="form-col">
                     <label for="contractSuit"><strong>Szín:</strong></label>
                     <select id="contractSuit">
-                        <option value="C">♣️</option>
-                        <option value="D">♦️</option>
-                        <option value="H">♥️</option>
-                        <option value="S">♠️</option>
+                        <option value="C">♣️ Treff</option>
+                        <option value="D">♦️ Káró</option>
+                        <option value="H">♥️ Kör</option>
+                        <option value="S">♠️ Pikk</option>
                         <option value="NT">Szanzadu (NT)</option>
                     </select>
                 </div>
@@ -86,26 +84,31 @@
                 </div>
 
             </div>
-            <label for="isVulnerable"><strong>Felvevő szkórhelyzete:</strong></label>
-            <select id="isVulnerable">
-                <option value="no">Mansban van</option>
-                <option value="yes">Bellben van</option>
-            </select>
-        </div>
-
-        <div class="card">
-            <label for="tricksTaken"><strong>Elnyert ütések száma: (0-13)</strong></label>
-            <input type="number" id="tricksTaken" min="0" max="13">
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="isVulnerable"><strong>Felvevő szkórhelyzete:</strong></label>
+                    <select id="isVulnerable">
+                        <option value="no">Mans</option>
+                        <option value="yes">Bell</option>
+                    </select>
+                </div>
+                <div class="form-col">
+                    <label for="tricksTaken"><strong>Elnyert ütések (0-13):</strong></label>
+                    <input type="number" id="tricksTaken" min="0" max="13">
+                </div>
+            </div>
         </div>
 
         <div id="formMessage" class="warning-box" style="display: none; margin-bottom: 20px;"></div>
 
         <button id="submitBtn" class="btn" style="background-color: #2b7a0b;">Eredmény beküldése</button>
         <a href="index.html" class="btn">Vissza a főoldalra</a>
+    </div>
 
-        <div style="font-size: smaller; text-align: center;">
-            built with ♥️ by wavee.labs 🌊
-        </div>
+
+    <div style="font-size: smaller; text-align: center;">
+        built with ♥️ by wavee.labs 🌊
+    </div>
 
     </div>
 
@@ -161,7 +164,7 @@
 
             //validáció
             if (resultData.pairNS === "" || resultData.pairEW === "" || resultData.tricks === "") {
-                showMessage("Kérlek töltsd ki a N-S pár, E-W pár és az Elnyert ütések száma mezőket!", true);
+                showMessage("Kérlek töltsd ki a N-S pár, E-W pár és az Elnyert ütések mezőket!", true);
                 return;
             }
 
