@@ -10,10 +10,10 @@
 
 <body>
     <div class="container">
-        <h1>Table entry 📝</h1>
+        <h1>Table Entry 📝</h1>
 
         <div class="card">
-            <h2>Table details</h2>
+            <h2>Table Details</h2>
 
             <label for="tableNum"><strong>Table Number: </strong></label>
             <input type="number" id="tableNum" min="1" value="1">
@@ -29,7 +29,7 @@
         </div>
 
         <div class="card">
-            <h2>Contract details</h2>
+            <h2>Contract Details</h2>
             <label for="contractLevel"><strong>Level (1-7):</strong></label>
             <select id="contractLevel">
                 <option value="1">1</option>
@@ -74,18 +74,18 @@
         </div>
 
         <div class="card">
-            <h2>Final result</h2>
-            <label for="tricksTaken"><strong>Total tricks taken (0-13)</strong></label>
+            <h2>Final Result</h2>
+            <label for="tricksTaken"><strong>Total Tricks Taken (0-13)</strong></label>
             <input type="number" id="tricksTaken" min="0" max="13">
         </div>
 
         <div id="formMessage" class="warning-box" style="display: none; margin-bottom: 20px;"></div>
 
-        <button id="submitBtn" class="btn" style="background-color: #2b7a0b;">Submit result 📨</button>
-        <a href="index.html" class="btn">Go Back Home 🏠</a>
+        <button id="submitBtn" class="btn" style="background-color: #2b7a0b;">Submit Result</button>
+        <a href="index.html" class="btn">Go Back Home</a>
 
         <div style="font-size: smaller; text-align: center;">
-            made with ♥️ by wavee.labs 🌊
+            built with ♥️ by wavee.labs 🌊
         </div>
 
     </div>
@@ -142,7 +142,7 @@
 
             //validáció
             if (resultData.pairNS === "" || resultData.pairEW === "" || resultData.tricks === "") {
-                showMessage("Please fill in the N-S Pair, E-W Pair, and Total tricks taken!", true);
+                showMessage("Please fill in the N-S Pair, E-W Pair, and Total Tricks Taken!", true);
                 return;
             }
 
@@ -176,7 +176,7 @@
                 //sima mentés
                 db.results.push(resultData);
                 saveDatabase(db);
-                showMessage("Board " + resultData.board + "; table" + resultData.table + " has been submitted successfully! 🎉", false);
+                showMessage("Board " + resultData.board + ", Table " + resultData.table + " has been submitted successfully! 🎉", false);
 
                 // kövi board a kényelemért
                 document.getElementById("boardNum").value = parseInt(resultData.board) + 1;
