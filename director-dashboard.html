@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard 📊</title>
+    <title>Vezérlőpult 📊</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -12,26 +12,26 @@
 <body>
 
     <div class="container">
-        <h1>Dashboard 📊</h1>
+        <h1>Vezérlőpult 📊</h1>
 
         <div class="card" id="sessionInfo" style="background-color: #f0f5fa; border-color: #1857b0;">
-            <p>Loading session data...</p>
+            <p>Verseny adatainak betöltése...</p>
         </div>
 
         <button id="calculateBtn" class="btn" style="background-color: #2b7a0b; margin-bottom: 25px;">
-            Calculate Tournament Winners
+            Eredmény kiszámítása
         </button>
 
         <div id="standingsSection" style="display: none;">
-            <h2>Tournament Standings</h2>
+            <h2>Végeredmény</h2>
 
             <div class="card" style="border-color: #2b7a0b; background-color: #f0fdf0;">
-                <h3 style="color: #2b7a0b; margin-top: 0;">N-S Winners</h3>
+                <h3 style="color: #2b7a0b; margin-top: 0;">N-S nyertesek</h3>
                 <div id="nsStandings"></div>
             </div>
 
             <div class="card" style="border-color: #1857b0; background-color: #f0f5fa;">
-                <h3 style="color: #1857b0; margin-top: 0;">E-W Winners</h3>
+                <h3 style="color: #1857b0; margin-top: 0;">E-W nyertesek</h3>
                 <div id="ewStandings"></div>
             </div>
 
@@ -39,17 +39,15 @@
         </div>
 
 
-        <h2>Incoming Results:</h2>
+        <h2>Beérkezett eredmények:</h2>
         <div id="resultsList"></div>
 
-        <div class="warning-box" style="margin-top: 40px;">
-            <h2 style="color: #cc0000; margin-top: 0;">Reset Session ⚠️</h2>
-            <p>Click to delete all session data</p>
-            <button id="resetBtn" class="btn" style="background-color: #cc0000; margin-bottom: 0;">Reset
-                Session</button>
-        </div>
 
-        <a href="index.html" class="btn">Go Back Home</a>
+        <button id="resetBtn" class="btn" style="background-color: #cc0000; margin-bottom: 20px;">Verseny
+            törlése 🗑️</button>
+
+
+        <a href="index.html" class="btn">Vissza a főoldalra</a>
 
         <div style="font-size: smaller; text-align: center;">
             built with ♥️ by wavee.labs 🌊
@@ -70,14 +68,14 @@
         }
         else {
             document.getElementById("sessionInfo").innerHTML =
-                "<p><strong>Tables: </strong>" + db.tableCount + "\t<strong>Boards: </strong>" + db.boardCount + "</p>" +
-                "<p><strong>Scores submitted: </strong>" + db.results.length + " / " + db.tableCount * db.boardCount + "</p>"
+                "<p><strong>Asztalok: </strong>" + db.tableCount + "\t<strong>Leosztások: </strong>" + db.boardCount + "</p>" +
+                "<p><strong>Beküldött eredmények: </strong>" + db.results.length + " / " + db.tableCount * db.boardCount + "</p>"
         }
 
         let resultsContainer = document.getElementById("resultsList");
 
         if (db.results.length === 0) {
-            resultsContainer.innerHTML = "<div class='card'><p>No scores have been submitted yet!</p></div>";
+            resultsContainer.innerHTML = "<div class='card'><p>Még nem érkezett eredmény.</p></div>";
             document.getElementById("calculateBtn").disabled = true;
         }
         else {
@@ -99,10 +97,10 @@
 
                 //html kartya
                 htmlToInsert += "<div class='card'>";
-                htmlToInsert += "<h3 style='margin-top: 0; color: #1857b0'>Table " + game.table + " Board " + game.board + "</h3>";
-                htmlToInsert += "<p><strong>N-S Pair " + game.pairNS + "</strong> vs <strong>E-W Pair " + game.pairEW + "</strong></p>";
-                htmlToInsert += "<p><strong>Contract: </strong>" + game.level + game.suit + doubledText + " declarer: " + game.declarer + "</p>";
-                htmlToInsert += "<p><strong>Total tricks: </strong>" + game.tricks + "</p>";
+                htmlToInsert += "<h3 style='margin-top: 0; color: #1857b0'>" + game.table + ". asztal, " + game.board + ". leosztás</h3>";
+                htmlToInsert += "<p><strong>N-S pár " + game.pairNS + "</strong> vs <strong>E-W pár " + game.pairEW + "</strong></p>";
+                htmlToInsert += "<p><strong>Szerződés: </strong>" + game.level + game.suit + doubledText + " felvevő: " + game.declarer + "</p>";
+                htmlToInsert += "<p><strong>Ütések összesen: </strong>" + game.tricks + "</p>";
                 htmlToInsert += "</div>";
             }
 
@@ -117,7 +115,7 @@
         document.getElementById("resetBtn").addEventListener("click", onResetClick);
 
         function onResetClick() {
-            let sure = confirm("⚠️ Are you sure you want to reset this session? All scores will be lost! ⚠️");
+            let sure = confirm("⚠️ Biztosan törölni szeretnéd ezt a versenyt? Minden eredmény elvész! ⚠️");
             if (sure) {
                 clearDatabase();
                 window.location.href = "index.html";

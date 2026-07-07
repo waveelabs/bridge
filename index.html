@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 
 <head>
     <meta charset="UTF-8">
@@ -14,12 +14,12 @@
         <h1>BridgePal</h1>
 
         <div class="card" style="border-color: #1857b0; background-color: #f0f5fa;">
-            <p id="statusMessage" style="font-weight: bold; font-size: 24px;">Checking database...</p>
+            <p id="statusMessage" style="font-weight: bold; font-size: 24px;">Adatbázis ellenőrzése...</p>
         </div>
 
-        <a href="director-setup.html" id="directorLink" class="btn">Director Setup ⚙️</a>
+        <a href="director-setup.html" id="directorLink" class="btn">Verseny léterhozása ⚙️</a>
 
-        <a href="table.html" id="tableLink" class="btn" style="background-color: #2b7a0b;">Table Entry 📝 </a>
+        <a href="table.html" id="tableLink" class="btn" style="background-color: #2b7a0b;">Szkórlap 📝 </a>
 
 
         <div style="font-size: smaller; text-align: center;">
@@ -40,11 +40,11 @@
             tableLink.style.backgroundColor = "gray";
             tableLink.removeAttribute("href");
             tableLink.style.pointerEvents = "none";
-            statusMessage.innerText = "No session is currently running. 😿";
+            statusMessage.innerText = "Jelenleg nincs aktív verseny. 😿";
         }
         else {
-            statusMessage.innerText = db.name + " is active ✅ \nTables: " + db.tableCount + "\nBoards: " + db.boardCount;
-            directorLink.innerText = "Dashboard 📊";
+            statusMessage.innerText = db.name + " aktív ✅ \nAsztalok: " + db.tableCount + "\nLeosztások: " + db.boardCount;
+            directorLink.innerText = "Vezérlőpult 📊";
             directorLink.href = "director-dashboard.html";
         }
     </script>

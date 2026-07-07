@@ -86,3 +86,13 @@ select:focus {
     font-weight: bold;
     border-radius: 15px;
 }
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 0;
+}
+
+.form-col {
+    flex: 1;
+}

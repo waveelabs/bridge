@@ -1,88 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table entry 📝</title>
+    <title>Szkórlap 📝</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
     <div class="container">
-        <h1>Table Entry 📝</h1>
+        <h1>Szkórlap 📝</h1>
 
         <div class="card">
-            <h2>Table Details</h2>
+            <h2>Asztal adatai</h2>
 
-            <label for="tableNum"><strong>Table Number: </strong></label>
-            <input type="number" id="tableNum" min="1" value="1">
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="tableNum"><strong>Asztal száma: </strong></label>
+                    <input type="number" id="tableNum" min="1" value="1">
+                </div>
+                <div class="form-col">
+                    <label for="boardNum"><strong>Leosztás száma: </strong></label>
+                    <input type="number" id="boardNum" min="1" value="1">
+                </div>
+            </div>
 
-            <label for="boardNum"><strong>Board Number: </strong></label>
-            <input type="number" id="boardNum" min="1" value="1">
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="nsPair"><strong>N-S pár száma: </strong></label>
+                    <input type="number" id="nsPair" min="1">
+                </div>
+                <div class="form-col">
+                    <label for="ewPair"><strong>E-W pár száma: </strong></label>
+                    <input type="number" id="ewPair" min="1">
+                </div>
 
-            <label for="nsPair"><strong>N-S Pair Number: </strong></label>
-            <input type="number" id="nsPair" min="1">
-
-            <label for="ewPair"><strong>E-W Pair Number: </strong></label>
-            <input type="number" id="ewPair" min="1">
+            </div>
         </div>
 
         <div class="card">
-            <h2>Contract Details</h2>
-            <label for="contractLevel"><strong>Level (1-7):</strong></label>
-            <select id="contractLevel">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-            </select>
+            <h2>Licit adatai</h2>
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="contractLevel"><strong>Vállalt ütések (1-7):</strong></label>
+                    <select id="contractLevel">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                    </select>
+                </div>
 
+                <div class="form-col">
+                    <label for="contractSuit"><strong>Szín:</strong></label>
+                    <select id="contractSuit">
+                        <option value="C">♣️</option>
+                        <option value="D">♦️</option>
+                        <option value="H">♥️</option>
+                        <option value="S">♠️</option>
+                        <option value="NT">Szanzadu (NT)</option>
+                    </select>
+                </div>
+            </div>
 
-            <label for="contractSuit"><strong>Suit:</strong></label>
-            <select id="contractSuit">
-                <option value="C">♣️</option>
-                <option value="D">♦️</option>
-                <option value="H">♥️</option>
-                <option value="S">♠️</option>
-                <option value="NT">No Trump (NT)</option>
-            </select>
+            <div class="form-row">
+                <div class="form-col">
 
-            <label for="contractDoubled"><strong>Doubled:</strong></label>
-            <select id="contractDoubled">
-                <option value="none">None</option>
-                <option value="X">Doubled</option>
-                <option value="XX">Redoubled</option>
-            </select>
+                    <label for="contractDoubled"><strong>Kontra:</strong></label>
+                    <select id="contractDoubled">
+                        <option value="none">Nincs</option>
+                        <option value="X">Kontra</option>
+                        <option value="XX">Rekontra</option>
+                    </select>
+                </div>
 
-            <label for="declarer"><strong>Declarer:</strong></label>
-            <select id="declarer">
-                <option value="N">North</option>
-                <option value="E">East</option>
-                <option value="S">South</option>
-                <option value="W">West</option>
-            </select>
+                <div class="form-col">
+                    <label for="declarer"><strong>Felvevő:</strong></label>
+                    <select id="declarer">
+                        <option value="N">North</option>
+                        <option value="E">East</option>
+                        <option value="S">South</option>
+                        <option value="W">West</option>
+                    </select>
+                </div>
+                <div class="form-col">
 
-            <label for="isVulnerable"><strong>Is Declarer Vulnerable?</strong></label>
-            <select id="isVulnerable">
-                <option value="no">No (Mansban)</option>
-                <option value="yes">Yes (Bellben)</option>
-            </select>
+                    <label for="isVulnerable"><strong>Felv. szkórhelyzete:</strong></label>
+                    <select id="isVulnerable">
+                        <option value="no">Mansban van</option>
+                        <option value="yes">Bellben van</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
         <div class="card">
-            <h2>Final Result</h2>
-            <label for="tricksTaken"><strong>Total Tricks Taken (0-13)</strong></label>
+            <h2>Végeredmény</h2>
+            <label for="tricksTaken"><strong>Elnyert ütések száma: (0-13)</strong></label>
             <input type="number" id="tricksTaken" min="0" max="13">
         </div>
 
         <div id="formMessage" class="warning-box" style="display: none; margin-bottom: 20px;"></div>
 
-        <button id="submitBtn" class="btn" style="background-color: #2b7a0b;">Submit Result</button>
-        <a href="index.html" class="btn">Go Back Home</a>
+        <button id="submitBtn" class="btn" style="background-color: #2b7a0b;">Eredmény beküldése</button>
+        <a href="index.html" class="btn">Vissza a főoldalra</a>
 
         <div style="font-size: smaller; text-align: center;">
             built with ♥️ by wavee.labs 🌊
@@ -122,7 +147,7 @@
             // database
             let db = getDatabase();
             if (db === null) {
-                showMessage("There is no valid session yet!", true);
+                showMessage("Még nincs létrehozott verseny!", true);
                 return;
             }
 
@@ -142,7 +167,7 @@
 
             //validáció
             if (resultData.pairNS === "" || resultData.pairEW === "" || resultData.tricks === "") {
-                showMessage("Please fill in the N-S Pair, E-W Pair, and Total Tricks Taken!", true);
+                showMessage("Kérlek töltsd ki a N-S pár, E-W pár és az Elnyert ütések száma mezőket!", true);
                 return;
             }
 
@@ -154,7 +179,7 @@
 
                 if (pastGame.table === resultData.table && pastGame.board === resultData.board) {
                     //felülírja, ha leokézzák (sok figyelmeztetéssel)
-                    let answer = window.confirm("⚠️ You are about to overwrite existing data! Continue? ⚠️");
+                    let answer = window.confirm("⚠️ Ezzel felülírod a már beküldött adatot! Biztosan folytatod? ⚠️");
                     if (answer) {
                         db.results[i] = resultData;
                         foundMistake = true;
@@ -170,13 +195,13 @@
             if (foundMistake === true) {
                 //felül akarja írni
                 saveDatabase(db);
-                showMessage("Mistake fixed! ✅ Board " + resultData.board + "; table" + resultData.table + " has been updated successfully! 🎉", false);
+                showMessage("Hiba javítva! ✅ " + resultData.board + ". leosztás, " + resultData.table + ". asztal sikeresen frissítve! 🎉", false);
             }
             else {
                 //sima mentés
                 db.results.push(resultData);
                 saveDatabase(db);
-                showMessage("Board " + resultData.board + ", Table " + resultData.table + " has been submitted successfully! 🎉", false);
+                showMessage(resultData.board + ". leosztás, " + resultData.table + ". asztal eredménye sikeresen beküldve! 🎉", false);
 
                 // kövi board a kényelemért
                 document.getElementById("boardNum").value = parseInt(resultData.board) + 1;

@@ -1,32 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Director Setup ⚙️</title>
+    <title>Verseny létrehozása ⚙️</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
     <div class="container">
-        <h1>Director Setup ⚙️</h1>
+        <h1>Verseny létrehozása ⚙️</h1>
 
         <div class="card">
-            <h2>Session Details</h2>
+            <h2>Verseny adatai</h2>
 
-            <label for="sessionName"><strong>Session Name:</strong></label>
-            <input type="text" id="sessionName" value="My Session">
+            <label for="sessionName"><strong>Verseny neve:</strong></label>
+            <input type="text" id="sessionName" value="Verseny">
 
-            <label for="tableCount"><strong>Number of Tables:</strong></label>
+            <label for="tableCount"><strong>Asztalok száma:</strong></label>
             <input type="number" id="tableCount" min="1" value="4">
 
-            <label for="boardCount"><strong>Number of Boards:</strong></label>
+            <label for="boardCount"><strong>Leosztások száma:</strong></label>
             <input type="number" id="boardCount" min="1" max="24" value="4">
         </div>
 
-        <button id="createBtn" class="btn" style="background-color: #2b7a0b;">Create Session</button>
-        <a href="index.html" class="btn">Go Back Home</a>
+        <button id="createBtn" class="btn" style="background-color: #2b7a0b;">Verseny létrehozása</button>
+        <a href="index.html" class="btn">Vissza a főoldalra</a>
 
         <div style="font-size: smaller; text-align: center;">
             built with ♥️ by wavee.labs 🌊
@@ -45,12 +45,12 @@
             let boards = document.getElementById("boardCount").value;
 
             if (name.trim() === "") {
-                name = "Untitled Session";
+                name = "Névtelen verseny";
                 //robinak valami alap név h ne kapjon agyfaszt
             }
 
             createTournament(name, tables, boards);
-            alert("Session created successfully! 🎉");
+            alert("A verseny sikeresen létrehozva! 🎉");
             window.location.href = "director-dashboard.html";
         }
     </script>
