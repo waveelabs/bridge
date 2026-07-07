@@ -13,26 +13,24 @@
         <h1>Szkórlap 📝</h1>
 
         <div class="card">
-            <h2>Asztal adatai</h2>
-
             <div class="form-row">
                 <div class="form-col">
-                    <label for="tableNum"><strong>Asztal száma: </strong></label>
+                    <label for="tableNum"><strong>Asztal: </strong></label>
                     <input type="number" id="tableNum" min="1" value="1">
                 </div>
                 <div class="form-col">
-                    <label for="boardNum"><strong>Leosztás száma: </strong></label>
+                    <label for="boardNum"><strong>Leosztás: </strong></label>
                     <input type="number" id="boardNum" min="1" value="1">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-col">
-                    <label for="nsPair"><strong>N-S pár száma: </strong></label>
+                    <label for="nsPair"><strong>N-S pár: </strong></label>
                     <input type="number" id="nsPair" min="1">
                 </div>
                 <div class="form-col">
-                    <label for="ewPair"><strong>E-W pár száma: </strong></label>
+                    <label for="ewPair"><strong>E-W pár: </strong></label>
                     <input type="number" id="ewPair" min="1">
                 </div>
 
@@ -40,10 +38,9 @@
         </div>
 
         <div class="card">
-            <h2>Licit adatai</h2>
             <div class="form-row">
                 <div class="form-col">
-                    <label for="contractLevel"><strong>Vállalt ütések (1-7):</strong></label>
+                    <label for="contractLevel"><strong>Szint (1-7):</strong></label>
                     <select id="contractLevel">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -87,19 +84,16 @@
                         <option value="W">West</option>
                     </select>
                 </div>
-                <div class="form-col">
 
-                    <label for="isVulnerable"><strong>Felv. szkórhelyzete:</strong></label>
-                    <select id="isVulnerable">
-                        <option value="no">Mansban van</option>
-                        <option value="yes">Bellben van</option>
-                    </select>
-                </div>
             </div>
+            <label for="isVulnerable"><strong>Felvevő szkórhelyzete:</strong></label>
+            <select id="isVulnerable">
+                <option value="no">Mansban van</option>
+                <option value="yes">Bellben van</option>
+            </select>
         </div>
 
         <div class="card">
-            <h2>Végeredmény</h2>
             <label for="tricksTaken"><strong>Elnyert ütések száma: (0-13)</strong></label>
             <input type="number" id="tricksTaken" min="0" max="13">
         </div>
