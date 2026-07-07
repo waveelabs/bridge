@@ -29,7 +29,8 @@ function createTournament(name, tableCount, boardCount) {
         name: name,
         tableCount: tableCount,
         boardCount: boardCount,
-        results: [] //array, amibe majd az eredmények kerülnek
+        results: [], //array, amibe majd az eredmények kerülnek
+        pairs: [] // párok adatai
     };
 
     saveDatabase(newTournament);

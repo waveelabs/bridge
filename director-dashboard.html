@@ -95,10 +95,18 @@
                     doubledText = " " + game.doubled;
                 }
 
+                //megkeressük a neveket
+
+                const ns = db.pairs?.find(p => p.direction === "N-S" && p.number == game.pairNS);
+                const ew = db.pairs?.find(p => p.direction === "E-W" && p.number == game.pairEW);
+
+                const nsName = ns ? ` (${ns.player1} és ${ns.player2})` : "";
+                const ewName = ew ? ` (${ew.player1} és ${ew.player2})` : "";
+
                 //html kartya
                 htmlToInsert += "<div class='card'>";
                 htmlToInsert += "<h3 style='margin-top: 0; color: #1857b0'>" + game.table + ". asztal, " + game.board + ". tok</h3>";
-                htmlToInsert += "<p><strong>N-S pár " + game.pairNS + "</strong> vs <strong>E-W pár " + game.pairEW + "</strong></p>";
+                htmlToInsert += "<p><strong>N-S pár " + game.pairNS + "</strong>" + nsName + " 🆚 <strong>E-W pár " + game.pairEW + "</strong>" + ewName + "</p>";
                 htmlToInsert += "<p><strong>Licit: </strong>" + game.level + game.suit + doubledText + " felvevő: " + game.declarer + "</p>";
                 htmlToInsert += "<p><strong>Ütések összesen: </strong>" + game.tricks + "</p>";
                 htmlToInsert += "</div>";

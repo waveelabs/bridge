@@ -18,7 +18,7 @@
         </div>
 
         <a href="director-setup.html" id="directorLink" class="btn">Verseny léterhozása ⚙️</a>
-
+        <a href="names.html" id="namesLink" class="btn" style="background-color: #d35400;">Nevek megadása 👥</a>
         <a href="table.html" id="tableLink" class="btn" style="background-color: #2b7a0b;">Szkórlap 📝 </a>
 
 
@@ -34,12 +34,17 @@
         let statusMessage = document.getElementById("statusMessage");
         let directorLink = document.getElementById("directorLink");
         let tableLink = document.getElementById("tableLink");
-
+        let namesLink = document.getElementById("namesLink");
 
         if (db === null) {
             tableLink.style.backgroundColor = "gray";
             tableLink.removeAttribute("href");
             tableLink.style.pointerEvents = "none";
+
+            namesLink.style.backgroundColor = "gray";
+            namesLink.removeAttribute("href");
+            namesLink.style.pointerEvents = "none";
+
             statusMessage.innerText = "Jelenleg nincs aktív verseny. 😿";
         }
         else {

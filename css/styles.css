@@ -52,11 +52,6 @@ h3 {
     margin-bottom: 15px;
 }
 
-.btn:hover,
-.btn.active {
-    background-color: #0c2b5e;
-}
-
 input[type="number"],
 input[type="text"],
 select {
@@ -95,4 +90,24 @@ select:focus {
 
 .form-col {
     flex: 1;
+}
+
+.names-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: #ffffff;
+    font-size: 20px;
+}
+
+.names-table th,
+.names-table td {
+    border: 3px solid #cccccc;
+    padding: 12px;
+    text-align: center;
+}
+
+.names-table th {
+    background-color: #1857b0;
+    color: white;
 }
