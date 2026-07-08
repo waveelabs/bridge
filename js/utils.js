@@ -19,7 +19,7 @@ function showMessage(text, isError) {
 
 function directorLogin() {
     if (sessionStorage.getItem("directorLoggedIn") !== "true") {
-        let password = prompt("Kérlek add meg a zsűri jelszót: ");
+        let password = prompt("Kérlek add meg a jelszót:");
         if (password === "Robi") {
             sessionStorage.setItem("directorLoggedIn", "true");
 

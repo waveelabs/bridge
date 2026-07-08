@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BridgePal</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
+    <link rel="manifest" href="manifest.json">
+    </link>
 </head>
 
 <body>
@@ -13,13 +17,13 @@
     <div class="container">
         <h1>BridgePal</h1>
 
-        <div class="card">
+        <div class="card" style="background-color: #f0f5fa; border-color: #1857b0;">
             <p id="statusMessage" style="font-weight: bold; font-size: 24px;">Adatbázis ellenőrzése...</p>
         </div>
 
-        <a href="director-setup.html" id="directorLink" class="btn">Verseny létrehozása ⚙️</a>
-        <a href="names.html" id="namesLink" class="btn" style="background-color: #d35400;">Nevek megadása 👥</a>
-        <a href="table.html" id="tableLink" class="btn" style="background-color: #2b7a0b;">Szkórlap 📝 </a>
+        <a href="director-setup.html" id="directorLink" class="btn">Verseny létrehozása</a>
+        <a href="names.html" id="namesLink" class="btn" style="background-color: #d35400;">Nevek megadása</a>
+        <a href="table.html" id="tableLink" class="btn" style="background-color: #2b7a0b;">Szkórlap</a>
 
 
         <div style="font-size: smaller; text-align: center;">
@@ -49,7 +53,7 @@
         }
         else {
             statusMessage.innerText = db.name + " aktív ✅ \nAsztalok: " + db.tableCount + "\tLeosztások: " + db.boardCount;
-            directorLink.innerText = "Vezérlőpult 📊";
+            directorLink.innerText = "Vezérlőpult";
             directorLink.href = "director-dashboard.html";
         }
     </script>

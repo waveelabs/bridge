@@ -4,15 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verseny létrehozása ⚙️</title>
+    <title>Verseny létrehozása</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
+    <link rel="manifest" href="manifest.json">
+    </link>
 </head>
 
 <body>
     <div class="container">
         <h1>Verseny létrehozása</h1>
 
-        <div class="card">
+        <div class="card" id="setupDetails">
             <label for="sessionName"><strong>Verseny neve:</strong></label>
             <input type="text" id="sessionName" value="Verseny">
 
@@ -22,6 +26,9 @@
             <label for="boardCount"><strong>Leosztások száma:</strong></label>
             <input type="number" id="boardCount" min="1" max="24" value="4">
         </div>
+
+        <div id="formMessage" class="warning-box" style="display: none; margin-bottom: 20px;"></div>
+
 
         <button id="createBtn" class="btn" style="background-color: #2b7a0b;">Verseny létrehozása</button>
         <a href="index.html" class="btn">Vissza a főoldalra</a>
@@ -40,6 +47,8 @@
         directorLogin();
 
         let createButton = document.getElementById("createBtn");
+        let setupDetails = document.getElementById("setupDetails");
+
         createButton.addEventListener("click", onCreateClick);
 
         function onCreateClick() {
@@ -53,8 +62,10 @@
             }
 
             createTournament(name, tables, boards);
-            alert("A verseny sikeresen létrehozva! 🎉");
-            window.location.href = "director-dashboard.html";
+            showMessage("A verseny sikeresen létrehozva! 🎉", false);
+            setupDetails.style.display = "none";
+            createButton.style.display = "none";
+
         }
     </script>
 </body>

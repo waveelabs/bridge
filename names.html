@@ -4,13 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nevek megadása 👥</title>
+    <title>Nevek megadása</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
+    <link rel="manifest" href="manifest.json">
+    </link>
 </head>
 
 <body>
     <div class="container">
-        <h1>Nevek megadása 👥</h1>
+        <h1>Nevek megadása</h1>
 
         <div class="card">
             <div class="form-row">
@@ -154,7 +158,7 @@
             let db = getDatabase();
             if (db && db.pairs[index]) {
                 let pairToDelete = db.pairs[index];
-                let sure = confirm(`⚠️ Biztosan törölni szeretnéd ezt a párt: ${pairToDelete.direction} ${pairToDelete.number}?`);
+                let sure = confirm(`⚠️ Biztosan törölni szeretnéd ezt a párt: ${pairToDelete.direction} ${pairToDelete.number}? ⚠️`);
 
                 if (sure) {
                     db.pairs.splice(index, 1); // kivágjuk
