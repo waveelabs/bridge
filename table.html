@@ -83,8 +83,30 @@
                 </div>
 
             </div>
-            <label for="tricksTaken"><strong>Elnyert ütések (0-13):</strong></label>
-            <input type="number" id="tricksTaken" min="0" max="13">
+            <label for="tricksTaken"><strong>Eredmény:</strong></label>
+            <select id="tricksTaken">
+                <option value="" disabled selected>Válassz...</option>
+                <option value="-13">-13</option>
+                <option value="-12">-12</option>
+                <option value="-11">-11</option>
+                <option value="-10">-10</option>
+                <option value="-9">-9</option>
+                <option value="-8">-8</option>
+                <option value="-7">-7</option>
+                <option value="-6">-6</option>
+                <option value="-5">-5</option>
+                <option value="-4">-4</option>
+                <option value="-3">-3</option>
+                <option value="-2">-2</option>
+                <option value="-1">-1</option>
+                <option value="=">=</option>
+                <option value="+1">+1</option>
+                <option value="+2">+2</option>
+                <option value="+3">+3</option>
+                <option value="+4">+4</option>
+                <option value="+5">+5</option>
+                <option value="+6">+6</option>
+            </select>
         </div>
         <p style="font-size: 18px; margin-bottom: 0; color: #555555; text-align: center;">
             Hibáztál? Csak küldd be újra az űrlapot!
@@ -144,7 +166,7 @@
 
             //validáció
             if (resultData.pairNS === "" || resultData.pairEW === "" || resultData.tricks === "") {
-                showMessage("Kérlek töltsd ki a N-S pár, E-W pár és az Elnyert ütések mezőket!", true);
+                showMessage("Kérlek töltsd ki a N-S pár, E-W pár és az Eredmény mezőket!", true);
                 return;
             }
 
@@ -156,7 +178,7 @@
                 `N-S: ${resultData.pairNS} | E-W: ${resultData.pairEW}\n` +
                 `Licit: ${resultData.level}${resultData.suit}${doubleText} (Felvevő: ${resultData.declarer})\n` +
                 `Felvevő szkórhelyzete: ${resultData.isVulnerable === "no" ? "M" : "B"}\n` +
-                `Ütések: ${resultData.tricks}\n\n` +
+                `Eredmény: ${resultData.tricks}\n\n` +
                 `Minden adat helyes?`;
 
             let sure = window.confirm(summaryText);
