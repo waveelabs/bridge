@@ -13,13 +13,14 @@
         <h1>Szkórlap 📝</h1>
 
         <div class="card">
+            <h3>Szkórhelyzet:</h3>
             <div class="form-row">
                 <div class="form-col">
                     <label for="tableNum"><strong>Asztal: </strong></label>
                     <input type="number" id="tableNum" min="1" value="1">
                 </div>
                 <div class="form-col">
-                    <label for="boardNum"><strong>Tok: </strong></label>
+                    <label for="boardNum"><strong>Leosztás: </strong></label>
                     <input type="number" id="boardNum" min="1" value="1">
                 </div>
             </div>
@@ -34,6 +35,26 @@
                     <input type="number" id="ewPair" min="1">
                 </div>
 
+            </div>
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="declarer"><strong>Felvevő:</strong></label>
+                    <select id="declarer">
+                        <option value="N">North</option>
+                        <option value="E">East</option>
+                        <option value="S">South</option>
+                        <option value="W">West</option>
+                    </select>
+                </div>
+
+                <div class="form-col">
+                    <label for="contractDoubled"><strong>Kontra:</strong></label>
+                    <select id="contractDoubled">
+                        <option value="none">Nincs</option>
+                        <option value="X">Kontra</option>
+                        <option value="XX">Rekontra</option>
+                    </select>
+                </div>
             </div>
 
             <div class="form-row">
@@ -58,28 +79,7 @@
                         <option value="H">♥️ Kör</option>
                         <option value="S">♠️ Pikk</option>
                         <option value="NT">Szanzadu (NT)</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-col">
-
-                    <label for="contractDoubled"><strong>Kontra:</strong></label>
-                    <select id="contractDoubled">
-                        <option value="none">Nincs</option>
-                        <option value="X">Kontra</option>
-                        <option value="XX">Rekontra</option>
-                    </select>
-                </div>
-
-                <div class="form-col">
-                    <label for="declarer"><strong>Felvevő:</strong></label>
-                    <select id="declarer">
-                        <option value="N">North</option>
-                        <option value="E">East</option>
-                        <option value="S">South</option>
-                        <option value="W">West</option>
+                        <option value="4P">Körpassz (4 passz)</option>
                     </select>
                 </div>
 
@@ -175,13 +175,13 @@
             if (foundMistake === true) {
                 //felül akarja írni
                 saveDatabase(db);
-                showMessage("Hiba javítva! ✅ " + resultData.board + ". tok, " + resultData.table + ". asztal sikeresen frissítve! 🎉", false);
+                showMessage("Hiba javítva! ✅ " + resultData.board + ". leosztás, " + resultData.table + ". asztal sikeresen frissítve! 🎉", false);
             }
             else {
                 //sima mentés
                 db.results.push(resultData);
                 saveDatabase(db);
-                showMessage(resultData.board + ". tok, " + resultData.table + ". asztal eredménye sikeresen beküldve! 🎉", false);
+                showMessage(resultData.board + ". leosztás, " + resultData.table + ". asztal eredménye sikeresen beküldve! 🎉", false);
 
                 // kövi board a kényelemért
                 document.getElementById("boardNum").value = parseInt(resultData.board) + 1;
