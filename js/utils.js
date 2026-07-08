@@ -16,3 +16,16 @@ function showMessage(text, isError) {
         msgBox.style.color = "#2b7a0b";
     }
 }
+
+function directorLogin() {
+    if (sessionStorage.getItem("directorLoggedIn") !== "true") {
+        let password = prompt("Kérlek add meg a zsűri jelszót: ");
+        if (password === "Robi") {
+            sessionStorage.setItem("directorLoggedIn", "true");
+
+        } else {
+            alert("Helytelen jelszó! Hozzáférés megtagadva!");
+            window.location.href = "index.html";
+        }
+    }
+}
