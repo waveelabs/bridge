@@ -13,7 +13,6 @@
         <h1>Szkórlap 📝</h1>
 
         <div class="card">
-            <h3>Szkórhelyzet:</h3>
             <div class="form-row">
                 <div class="form-col">
                     <label for="tableNum"><strong>Asztal: </strong></label>
@@ -84,26 +83,19 @@
                 </div>
 
             </div>
-            <div class="form-row">
-                <div class="form-col">
-                    <label for="isVulnerable"><strong>Felvevő szkórhelyzete:</strong></label>
-                    <select id="isVulnerable">
-                        <option value="no">Mans</option>
-                        <option value="yes">Bell</option>
-                    </select>
-                </div>
-                <div class="form-col">
-                    <label for="tricksTaken"><strong>Elnyert ütések (0-13):</strong></label>
-                    <input type="number" id="tricksTaken" min="0" max="13">
-                </div>
-            </div>
+            <label for="tricksTaken"><strong>Elnyert ütések (0-13):</strong></label>
+            <input type="number" id="tricksTaken" min="0" max="13">
         </div>
-
+        <p style="font-size: 18px; margin-bottom: 0; color: #555555; text-align: center;">
+            Hibáztál? Csak küldd be újra az űrlapot!
+        </p>
         <div id="formMessage" class="warning-box" style="display: none; margin-bottom: 20px;"></div>
 
         <button id="submitBtn" class="btn" style="background-color: #2b7a0b;">Eredmény beküldése</button>
         <a href="index.html" class="btn">Vissza a főoldalra</a>
     </div>
+    </div>
+
 
 
     <div style="font-size: smaller; text-align: center;">
@@ -132,16 +124,21 @@
             }
 
             // let'g gather the daaaaata
+
+            let boardVal = document.getElementById("boardNum").value;
+            let declarerVal = document.getElementById("declarer").value;
+            let caluculatedVuln = calculateVulnerability(boardVal, declarerVal);
+
             let resultData = {
                 table: document.getElementById("tableNum").value,
-                board: document.getElementById("boardNum").value,
+                board: boardVal,
                 pairNS: document.getElementById("nsPair").value,
                 pairEW: document.getElementById("ewPair").value,
                 level: document.getElementById("contractLevel").value,
                 suit: document.getElementById("contractSuit").value,
                 doubled: document.getElementById("contractDoubled").value,
-                declarer: document.getElementById("declarer").value,
-                isVulnerable: document.getElementById("isVulnerable").value,
+                declarer: declarerVal,
+                isVulnerable: caluculatedVuln,
                 tricks: document.getElementById("tricksTaken").value
             }
 
@@ -151,8 +148,23 @@
                 return;
             }
 
-            // meg kéne nézni, hogy ez a table és board combo létezik-e
+            let doubleText = resultData.doubled !== "none" ? ` ${resultData.doubled}` : "";
 
+            //öszefoglaló szöveg
+            let summaryText = `Beküldés megerősítése:\n\n` +
+                `Asztal: ${resultData.table} | Leosztás: ${resultData.board}\n` +
+                `N-S: ${resultData.pairNS} | E-W: ${resultData.pairEW}\n` +
+                `Licit: ${resultData.level}${resultData.suit}${doubleText} (Felvevő: ${resultData.declarer})\n` +
+                `Felvevő szkórhelyzete: ${resultData.isVulnerable === "no" ? "M" : "B"}\n` +
+                `Ütések: ${resultData.tricks}\n\n` +
+                `Minden adat helyes?`;
+
+            let sure = window.confirm(summaryText);
+            if (!sure) {
+                return;
+            }
+
+            // meg kéne nézni, hogy ez a table és board combo létezik-e
             let foundMistake = false;
             for (let i = 0; i < db.results.length; i++) {
                 let pastGame = db.results[i];
@@ -194,8 +206,13 @@
             window.scrollTo(0, document.body.scrollHeight);
         }
 
+        function calculateVulnerability(boardNum, declarer) {
+            // Anna ezt az élményt meghagyom neked 
+            return "yes";
+        }
 
-        // recent score logika itt lehetne
+
+        // recent score logika itt lehetne, ha kell
 
     </script>
 

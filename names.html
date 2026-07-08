@@ -43,15 +43,16 @@
 
         <div id="formMessage" class="warning-box" style="display: none; margin-bottom: 20px;"></div>
 
+
         <button id="addPairBtn" class="btn" style="background-color: #d35400;">Pár rögzítése</button>
 
         <h2>Rögzített nevek:</h2>
         <table class="names-table">
             <thead>
                 <tr>
-                    <th>Vonal</th>
-                    <th>Pár</th>
+                    <th>Azonosító</th>
                     <th>Nevek</th>
+                    <th>Törlés</th>
                 </tr>
             </thead>
             <tbody id="namesTableBody">
@@ -114,7 +115,7 @@
             }
 
             saveDatabase(db);
-            showMessage(`${direction}${pNumber} páros sikeresen elmentve! ✅`, false);
+            showMessage(`${direction} ${pNumber} páros sikeresen elmentve! ✅`, false);
 
             //űrlap letörlése
             document.getElementById("player1").value = "";
@@ -139,13 +140,30 @@
                 let pair = db.pairs[i];
                 let tr = document.createElement("tr");
 
-                tr.innerHTML = `<td>${pair.direction}</td>
-                        <td>${pair.number}</td>
-                        <td>${pair.player1} és ${pair.player2}</td>`;
+                tr.innerHTML = `<td>${pair.direction} ${pair.number}</td>
+                        <td>${pair.player1} és ${pair.player2}</td>
+                        <td style="text-align: center; cursor: pointer; color: #cc0000; font-size: 1.2em;" title="Törlés" onclick="deletePair(${i})">❌</td>`;
 
                 tbody.appendChild(tr);
 
             }
+        }
+
+        function deletePair(index) {
+
+            let db = getDatabase();
+            if (db && db.pairs[index]) {
+                let pairToDelete = db.pairs[index];
+                let sure = confirm(`⚠️ Biztosan törölni szeretnéd ezt a párt: ${pairToDelete.direction} ${pairToDelete.number}?`);
+
+                if (sure) {
+                    db.pairs.splice(index, 1); // kivágjuk
+                    saveDatabase(db);
+                    showMessage(`${pairToDelete.direction} ${pairToDelete.number} páros sikeresen törölve! 🗑️`, false);
+                    renderTable();
+                }
+            }
+
         }
 
         renderTable();
