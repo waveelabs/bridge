@@ -1,247 +1,335 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="hu">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Szkórlap</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/png" sizes="192x192" href="images/logo.png">
-    <link rel="apple-touch-icon" href="images/logo.png">
-    <link rel="manifest" href="manifest.json">
-    </link>
-</head>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" type="image/png" sizes="192x192" href="images/logo.png" />
+    <link rel="apple-touch-icon" href="images/logo.png" />
+    <link rel="manifest" href="manifest.json" />
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <h1>Szkórlap</h1>
+      <h1>Szkórlap</h1>
 
-        <div class="card">
-            <div class="form-row">
-                <div class="form-col">
-                    <label for="tableNum"><strong>Asztal: </strong></label>
-                    <input type="number" id="tableNum" min="1" value="1">
-                </div>
-                <div class="form-col">
-                    <label for="boardNum"><strong>Leosztás: </strong></label>
-                    <input type="number" id="boardNum" min="1" value="1">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-col">
-                    <label for="nsPair"><strong>N-S pár: </strong></label>
-                    <input type="number" id="nsPair" min="1">
-                </div>
-                <div class="form-col">
-                    <label for="ewPair"><strong>E-W pár: </strong></label>
-                    <input type="number" id="ewPair" min="1">
-                </div>
-
-            </div>
-            <div class="form-row">
-                <div class="form-col">
-                    <label for="declarer"><strong>Felvevő:</strong></label>
-                    <select id="declarer">
-                        <option value="N">North</option>
-                        <option value="E">East</option>
-                        <option value="S">South</option>
-                        <option value="W">West</option>
-                    </select>
-                </div>
-
-                <div class="form-col">
-                    <label for="contractDoubled"><strong>Kontra:</strong></label>
-                    <select id="contractDoubled">
-                        <option value="none">Nincs</option>
-                        <option value="X">Kontra</option>
-                        <option value="XX">Rekontra</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-col">
-                    <label for="contractLevel"><strong>Szint (1-7):</strong></label>
-                    <select id="contractLevel">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                    </select>
-                </div>
-
-                <div class="form-col">
-                    <label for="contractSuit"><strong>Szín:</strong></label>
-                    <select id="contractSuit">
-                        <option value="C">♣️ Treff</option>
-                        <option value="D">♦️ Káró</option>
-                        <option value="H">♥️ Kör</option>
-                        <option value="S">♠️ Pikk</option>
-                        <option value="NT">Szanzadu (NT)</option>
-                        <option value="4P">Körpassz (4 passz)</option>
-                    </select>
-                </div>
-
-            </div>
-            <label for="tricksTaken"><strong>Eredmény:</strong></label>
-            <select id="tricksTaken">
-                <option value="" disabled selected>Válassz...</option>
-                <option value="-13">-13</option>
-                <option value="-12">-12</option>
-                <option value="-11">-11</option>
-                <option value="-10">-10</option>
-                <option value="-9">-9</option>
-                <option value="-8">-8</option>
-                <option value="-7">-7</option>
-                <option value="-6">-6</option>
-                <option value="-5">-5</option>
-                <option value="-4">-4</option>
-                <option value="-3">-3</option>
-                <option value="-2">-2</option>
-                <option value="-1">-1</option>
-                <option value="=">=</option>
-                <option value="+1">+1</option>
-                <option value="+2">+2</option>
-                <option value="+3">+3</option>
-                <option value="+4">+4</option>
-                <option value="+5">+5</option>
-                <option value="+6">+6</option>
-            </select>
+      <div class="card">
+        <div class="form-row">
+          <div class="form-col">
+            <label for="tableNum"><strong>Asztal: </strong></label>
+            <input type="number" id="tableNum" min="1" value="1" />
+          </div>
+          <div class="form-col">
+            <label for="boardNum"><strong>Leosztás: </strong></label>
+            <input type="number" id="boardNum" min="1" value="1" />
+          </div>
         </div>
-        <p style="font-size: 18px; margin-bottom: 0; color: #555555; text-align: center;">
-            Hibáztál? Csak küldd be újra az űrlapot!
-        </p>
-        <div id="formMessage" class="warning-box" style="display: none; margin-bottom: 20px;"></div>
 
-        <button id="submitBtn" class="btn" style="background-color: #2b7a0b;">Eredmény beküldése</button>
-        <a href="index.html" class="btn">Vissza a főoldalra</a>
+        <div class="form-row">
+          <div class="form-col">
+            <label for="nsPair"><strong>N-S pár: </strong></label>
+            <input type="number" id="nsPair" min="1" />
+          </div>
+          <div class="form-col">
+            <label for="ewPair"><strong>E-W pár: </strong></label>
+            <input type="number" id="ewPair" min="1" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <label for="declarer"><strong>Felvevő:</strong></label>
+            <select id="declarer">
+              <option value="N">North</option>
+              <option value="E">East</option>
+              <option value="S">South</option>
+              <option value="W">West</option>
+            </select>
+          </div>
+
+          <div class="form-col">
+            <label for="contractDoubled"><strong>Kontra:</strong></label>
+            <select id="contractDoubled">
+              <option value="none">Nincs</option>
+              <option value="X">Kontra</option>
+              <option value="XX">Rekontra</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-col">
+            <label for="contractLevel"><strong>Szint (1-7):</strong></label>
+            <select id="contractLevel">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+            </select>
+          </div>
+
+          <div class="form-col">
+            <label for="contractSuit"><strong>Szín:</strong></label>
+            <select id="contractSuit">
+              <option value="C">♣️ Treff</option>
+              <option value="D">♦️ Káró</option>
+              <option value="H">♥️ Kör</option>
+              <option value="S">♠️ Pikk</option>
+              <option value="NT">Szanzadu (NT)</option>
+              <option value="4P">Körpassz (4 passz)</option>
+            </select>
+          </div>
+        </div>
+        <label for="tricksTaken"><strong>Eredmény:</strong></label>
+        <select id="tricksTaken">
+          <option value="" disabled selected>Válassz...</option>
+          <option value="-13">-13</option>
+          <option value="-12">-12</option>
+          <option value="-11">-11</option>
+          <option value="-10">-10</option>
+          <option value="-9">-9</option>
+          <option value="-8">-8</option>
+          <option value="-7">-7</option>
+          <option value="-6">-6</option>
+          <option value="-5">-5</option>
+          <option value="-4">-4</option>
+          <option value="-3">-3</option>
+          <option value="-2">-2</option>
+          <option value="-1">-1</option>
+          <option value="=">=</option>
+          <option value="+1">+1</option>
+          <option value="+2">+2</option>
+          <option value="+3">+3</option>
+          <option value="+4">+4</option>
+          <option value="+5">+5</option>
+          <option value="+6">+6</option>
+        </select>
+
+        <div id="declarerVulnerability">A felvevő sebezhetősége:</div>
+      </div>
+      <p
+        style="
+          font-size: 18px;
+          margin-bottom: 0;
+          color: #555555;
+          text-align: center;
+        "
+      >
+        Hibáztál? Csak küldd be újra az űrlapot!
+      </p>
+      <div
+        id="formMessage"
+        class="warning-box"
+        style="display: none; margin-bottom: 20px"
+      ></div>
+
+      <button id="submitBtn" class="btn" style="background-color: #2b7a0b">
+        Eredmény beküldése
+      </button>
+      <a href="index.html" class="btn">Vissza a főoldalra</a>
     </div>
-    </div>
 
-
-
-    <div style="font-size: smaller; text-align: center;">
-        built with ♥️ by wavee.labs 🌊
-    </div>
-
+    <div style="font-size: smaller; text-align: center">
+      built with ♥️ by wavee.labs 🌊
     </div>
 
     <script src="js/mock-data.js"></script>
     <script src="js/utils.js"></script>
 
+    <script type="module">
+      import {
+        calculateScore,
+        calculateMatchpoints,
+        calculateVulnerability,
+      } from "./js/calculate.js";
 
-    <script>
+      // submit button magic
+      let submitBtn = document.getElementById("submitBtn");
+      submitBtn.addEventListener("click", onSubmitClick);
 
-        // submit button magic
-        let submitBtn = document.getElementById("submitBtn");
-        submitBtn.addEventListener("click", onSubmitClick);
+      const boardNumInput = document.getElementById("boardNum");
+      const declarerSelect = document.getElementById("declarer");
+      const vulnDisplay = document.getElementById("declarerVulnerability");
 
-        function onSubmitClick() {
+      //esemenykezelők -- megsem annyira folosleges az az eva
+      boardNumInput.addEventListener("input", frissitSebezhetoseg);
+      boardNumInput.addEventListener("change", frissitSebezhetoseg);
+      declarerSelect.addEventListener("change", frissitSebezhetoseg);
 
-            // database
-            let db = getDatabase();
-            if (db === null) {
-                showMessage("Még nincs létrehozott verseny!", true);
-                return;
-            }
+      // frissítjük a sebezhetőséget, ha változik a board vagy a felvevő --gemini irta
+      function frissitSebezhetoseg() {
+        const boardVal = document.getElementById("boardNum").value;
+        const declarerVal = document.getElementById("declarer").value;
 
-            // let'g gather the daaaaata
+        if (boardVal && declarerVal) {
+          const calculatedVuln = calculateVulnerability(boardVal, declarerVal);
+          // Szép magyar kiírás (pl. "Vulnerable" -> Sebezhető, "None" -> Nem sebezhető)
+          const szoftveresMegjelenites =
+            calculatedVuln === "yes" ||
+            calculatedVuln === true ||
+            calculatedVuln === "vul"
+              ? "Sebezhető (B)"
+              : "Nem sebezhető (M)";
 
-            let boardVal = document.getElementById("boardNum").value;
-            let declarerVal = document.getElementById("declarer").value;
-            let caluculatedVuln = calculateVulnerability(boardVal, declarerVal);
+          vulnDisplay.textContent = `A felvevő sebezhetősége: ${szoftveresMegjelenites}`;
+          return calculatedVuln;
+        }
+        return "no";
+      }
 
-            let resultData = {
-                table: document.getElementById("tableNum").value,
-                board: boardVal,
-                pairNS: document.getElementById("nsPair").value,
-                pairEW: document.getElementById("ewPair").value,
-                level: document.getElementById("contractLevel").value,
-                suit: document.getElementById("contractSuit").value,
-                doubled: document.getElementById("contractDoubled").value,
-                declarer: declarerVal,
-                isVulnerable: caluculatedVuln,
-                tricks: document.getElementById("tricksTaken").value
-            }
+      //esemenykezelők -- megsem annyira folosleges az az eva
+      boardNumInput.addEventListener("input", frissitSebezhetoseg);
+      boardNumInput.addEventListener("change", frissitSebezhetoseg);
+      declarerSelect.addEventListener("change", frissitSebezhetoseg);
 
-            //validáció
-            if (resultData.pairNS === "" || resultData.pairEW === "" || resultData.tricks === "") {
-                showMessage("Kérlek töltsd ki a N-S pár, E-W pár és az Eredmény mezőket!", true);
-                return;
-            }
+      // Első betöltéskor is fusson le, hogy ne legyen üres a mező
+      frissitSebezhetoseg();
 
-            let doubleText = resultData.doubled !== "none" ? ` ${resultData.doubled}` : "";
-
-            //öszefoglaló szöveg
-            let summaryText = `Beküldés megerősítése:\n\n` +
-                `Asztal: ${resultData.table} | Leosztás: ${resultData.board}\n` +
-                `N-S: ${resultData.pairNS} | E-W: ${resultData.pairEW}\n` +
-                `Licit: ${resultData.level}${resultData.suit}${doubleText} (Felvevő: ${resultData.declarer})\n` +
-                `Felvevő szkórhelyzete: ${resultData.isVulnerable === "no" ? "M" : "B"}\n` +
-                `Eredmény: ${resultData.tricks}\n\n` +
-                `Minden adat helyes?`;
-
-            let sure = window.confirm(summaryText);
-            if (!sure) {
-                return;
-            }
-
-            // meg kéne nézni, hogy ez a table és board combo létezik-e
-            let foundMistake = false;
-            for (let i = 0; i < db.results.length; i++) {
-                let pastGame = db.results[i];
-
-                if (pastGame.table === resultData.table && pastGame.board === resultData.board) {
-                    //felülírja, ha leokézzák (sok figyelmeztetéssel)
-                    let answer = window.confirm("⚠️ Ezzel felülírod a már beküldött adatot! Biztosan folytatod? ⚠️");
-                    if (answer) {
-                        db.results[i] = resultData;
-                        foundMistake = true;
-                        break;
-                    }
-                    else {
-                        // egyébként csak kilépünk
-                        return;
-                    }
-                }
-            }
-
-            if (foundMistake === true) {
-                //felül akarja írni
-                saveDatabase(db);
-                showMessage("Hiba javítva! ✅ " + resultData.board + ". leosztás, " + resultData.table + ". asztal sikeresen frissítve! 🎉", false);
-            }
-            else {
-                //sima mentés
-                db.results.push(resultData);
-                saveDatabase(db);
-                showMessage(resultData.board + ". leosztás, " + resultData.table + ". asztal eredménye sikeresen beküldve! 🎉", false);
-
-                // kövi board a kényelemért
-                document.getElementById("boardNum").value = parseInt(resultData.board) + 1;
-            }
-
-            //letisztítjuk a formot
-            document.getElementById("tricksTaken").value = "";
-
-            //legörgetünk
-            window.scrollTo(0, document.body.scrollHeight);
+      function onSubmitClick() {
+        // database
+        let db = getDatabase();
+        if (db === null) {
+          showMessage("Még nincs létrehozott verseny!", true);
+          return;
         }
 
-        function calculateVulnerability(boardNum, declarer) {
-            // Anna ezt az élményt meghagyom neked 
-            return "yes";
+        // let'g gather the daaaaata
+
+        let boardVal = document.getElementById("boardNum").value;
+        let declarerVal = document.getElementById("declarer").value;
+        let calculatedVuln = calculateVulnerability(boardVal, declarerVal);
+        let resultData = {
+          table: document.getElementById("tableNum").value,
+          board: boardVal,
+          pairNS: document.getElementById("nsPair").value,
+          pairEW: document.getElementById("ewPair").value,
+          level: document.getElementById("contractLevel").value,
+          suit: document.getElementById("contractSuit").value,
+          doubled: document.getElementById("contractDoubled").value,
+          declarer: declarerVal,
+          isVulnerable: calculatedVuln,
+          tricks: document.getElementById("tricksTaken").value,
+        };
+
+        //validáció
+        if (
+          resultData.pairNS === "" ||
+          resultData.pairEW === "" ||
+          resultData.tricks === ""
+        ) {
+          showMessage(
+            "Kérlek töltsd ki a N-S pár, E-W pár és az Eredmény mezőket!",
+            true,
+          );
+          return;
         }
 
+        let doubleText =
+          resultData.doubled !== "none" ? ` ${resultData.doubled}` : "";
 
-        // recent score logika itt lehetne, ha kell
+        let scorePage = {
+          ns_v: calculateVulnerability(resultData.board, "N"),
+          ew_v: calculateVulnerability(resultData.board, "E"),
+          declarer: resultData.declarer,
+          contract_amount: resultData.level,
+          contract_suite: resultData.suit,
+          tricks_result: resultData.tricks,
+          doubled: doubledConverter(resultData.doubled),
+        };
 
+        let score = calculateScore(scorePage);
+
+        //öszefoglaló szöveg
+        let summaryText =
+          `Beküldés megerősítése:\n\n` +
+          `Asztal: ${resultData.table} | Leosztás: ${resultData.board}\n` +
+          `N-S: ${resultData.pairNS} | E-W: ${resultData.pairEW}\n` +
+          `Licit: ${resultData.level}${resultData.suit}${doubleText} (Felvevő: ${resultData.declarer})\n` +
+          `Felvevő szkórhelyzete: ${resultData.isVulnerable === "no" ? "M" : "B"}\n` +
+          `Eredmény: ${resultData.tricks}\n` +
+          `Pontszám: ${score}\n\n` +
+          `Minden adat helyes?`;
+
+        let sure = window.confirm(summaryText);
+        if (!sure) {
+          return;
+        }
+
+        // meg kéne nézni, hogy ez a table és board combo létezik-e
+        let foundMistake = false;
+        for (let i = 0; i < db.results.length; i++) {
+          let pastGame = db.results[i];
+
+          if (
+            pastGame.table === resultData.table &&
+            pastGame.board === resultData.board
+          ) {
+            //felülírja, ha leokézzák (sok figyelmeztetéssel)
+            let answer = window.confirm(
+              "⚠️ Ezzel felülírod a már beküldött adatot! Biztosan folytatod? ⚠️",
+            );
+            if (answer) {
+              db.results[i] = resultData;
+              foundMistake = true;
+              break;
+            } else {
+              // egyébként csak kilépünk
+              return;
+            }
+          }
+        }
+
+        if (foundMistake === true) {
+          //felül akarja írni
+          saveDatabase(db);
+          showMessage(
+            "Hiba javítva! ✅ " +
+              resultData.board +
+              ". leosztás, " +
+              resultData.table +
+              ". asztal sikeresen frissítve! 🎉",
+            false,
+          );
+        } else {
+          //sima mentés
+          db.results.push(resultData);
+          saveDatabase(db);
+          showMessage(
+            resultData.board +
+              ". leosztás, " +
+              resultData.table +
+              ". asztal eredménye sikeresen beküldve! 🎉",
+            false,
+          );
+
+          // kövi board a kényelemért
+          document.getElementById("boardNum").value =
+            parseInt(resultData.board) + 1;
+        }
+
+        //letisztítjuk a formot
+        document.getElementById("tricksTaken").value = "";
+
+        //frissítés
+        frissitSebezhetoseg();
+
+        //legörgetünk
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+
+      function doubledConverter(value) {
+        if (value === "none") {
+          return 1;
+        } else if (value === "X") {
+          return 2;
+        } else if (value === "XX") {
+          return 4;
+        }
+        return 1;
+      }
     </script>
-
-</body>
-
+  </body>
 </html>
