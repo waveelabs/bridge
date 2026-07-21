@@ -1,177 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="hu">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nevek megadása</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/png" sizes="192x192" href="images/logo.png">
-    <link rel="apple-touch-icon" href="images/logo.png">
-    <link rel="manifest" href="manifest.json">
-    </link>
-</head>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <h1>Nevek megadása</h1>
+      <h1>Nevek megadása</h1>
 
-        <div class="card">
-            <div class="form-row">
-                <div class="form-col">
-                    <label for="pairDirection"><strong>Vonal:</strong></label>
-                    <select id="pairDirection">
-                        <option value="N-S">N-S</option>
-                        <option value="E-W">E-W</option>
-                    </select>
-                </div>
+      <div class="card">
+        <div class="form-row">
+          <div class="form-col">
+            <label for="pairDirection"><strong>Vonal:</strong></label>
+            <select id="pairDirection">
+              <option value="N-S">N-S</option>
+              <option value="E-W">E-W</option>
+            </select>
+          </div>
 
-                <div class="form-col">
-                    <label for="pairNumber"><strong>Pár:</strong></label>
-                    <input type="number" id="pairNumber" min="1" value="1">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-col">
-                    <label for="player1"><strong>1. Játékos:</strong></label>
-                    <input type="text" id="player1" placeholder="Pl. Emőke">
-                </div>
-
-                <div class="form-col">
-                    <label for="player2"><strong>2. Játékos:</strong></label>
-                    <input type="text" id="player2" placeholder="Pl. Péter">
-                </div>
-            </div>
+          <div class="form-col">
+            <label for="pairNumber"><strong>Pár:</strong></label>
+            <input type="number" id="pairNumber" min="1" value="1" />
+          </div>
         </div>
 
-        <div id="formMessage" class="warning-box" style="display: none; margin-bottom: 20px;"></div>
+        <div class="form-row">
+          <div class="form-col">
+            <label for="player1"><strong>1. Játékos:</strong></label>
+            <input type="text" id="player1" placeholder="Pl. Emőke" />
+          </div>
 
-
-        <button id="addPairBtn" class="btn" style="background-color: #d35400;">Pár rögzítése</button>
-
-        <h2>Rögzített nevek:</h2>
-        <table class="names-table">
-            <thead>
-                <tr>
-                    <th>Azonosító</th>
-                    <th>Nevek</th>
-                    <th>Törlés</th>
-                </tr>
-            </thead>
-            <tbody id="namesTableBody">
-
-
-
-            </tbody>
-        </table>
-
-        <a href="index.html" class="btn" style="margin-top: 20px;">Vissza a főoldalra</a>
-        <div style="font-size: smaller; text-align: center;">
-            built with ♥️ by wavee.labs 🌊
+          <div class="form-col">
+            <label for="player2"><strong>2. Játékos:</strong></label>
+            <input type="text" id="player2" placeholder="Pl. Péter" />
+          </div>
         </div>
+      </div>
 
+      <div
+        id="formMessage"
+        class="warning-box"
+        style="display: none; margin-bottom: 20px"
+      ></div>
+
+      <button id="addPairBtn" class="btn" style="background-color: #d35400">
+        Pár rögzítése
+      </button>
+
+      <h2>Rögzített nevek:</h2>
+      <table class="names-table">
+        <thead>
+          <tr>
+            <th>Azonosító</th>
+            <th>Nevek</th>
+            <th>Törlés</th>
+          </tr>
+        </thead>
+        <tbody id="namesTableBody"></tbody>
+      </table>
+
+      <a href="index.html" class="btn" style="margin-top: 20px"
+        >Vissza a főoldalra</a
+      >
+      <div style="font-size: smaller; text-align: center">
+        built with ♥️ by wavee.labs 🌊
+      </div>
     </div>
 
     <script src="js/mock-data.js"></script>
     <script src="js/utils.js"></script>
-
-    <script>
-
-        //Adatok mentése
-        document.getElementById("addPairBtn").addEventListener("click", onAddPair);
-
-        function onAddPair() {
-            let db = getDatabase();
-            if (db === null) {
-                showMessage("Még nincs aktív verseny!", true);
-                return;
-            }
-
-            let direction = document.getElementById("pairDirection").value;
-            let pNumber = document.getElementById("pairNumber").value;
-            let p1 = document.getElementById("player1").value.trim();
-            let p2 = document.getElementById("player2").value.trim();
-
-            if (p1 === "" || p2 === "") {
-                showMessage("Kérlek töltsd ki mindkét játékos nevét!", true);
-                return;
-            }
-
-            let pairData = {
-                direction: direction,
-                number: pNumber,
-                player1: p1,
-                player2: p2,
-            }
-
-            let existingIndex = db.pairs.findIndex(p => p.direction === direction && p.number === pNumber);
-
-            if (existingIndex !== -1) {
-                let sure = confirm("⚠️ Ez a párszám már létezik ezen a vonalon. Bisztosan felülírod az eddigi neveket? ⚠️");
-                if (sure) {
-                    db.pairs[existingIndex] = pairData;
-                } else {
-                    return;
-                }
-            } else {
-                db.pairs.push(pairData);
-            }
-
-            saveDatabase(db);
-            showMessage(`${direction} ${pNumber} páros sikeresen elmentve! ✅`, false);
-
-            //űrlap letörlése
-            document.getElementById("player1").value = "";
-            document.getElementById("player2").value = "";
-
-            renderTable();
-        }
-
-        function renderTable() {
-            let db = getDatabase();
-            let tbody = document.getElementById("namesTableBody");
-            tbody.innerHTML = "";
-
-
-            if (!db || db.pairs.length === 0) {
-                tbody.innerHTML = "<tr><td colspan='3'>Még nincsenek rögzített párok.</td></tr>";
-                return;
-            }
-
-            for (let i = 0; i < db.pairs.length; i++) {
-
-                let pair = db.pairs[i];
-                let tr = document.createElement("tr");
-
-                tr.innerHTML = `<td>${pair.direction} ${pair.number}</td>
-                        <td>${pair.player1} és ${pair.player2}</td>
-                        <td style="text-align: center; cursor: pointer; color: #cc0000; font-size: 1.2em;" title="Törlés" onclick="deletePair(${i})">❌</td>`;
-
-                tbody.appendChild(tr);
-
-            }
-        }
-
-        function deletePair(index) {
-
-            let db = getDatabase();
-            if (db && db.pairs[index]) {
-                let pairToDelete = db.pairs[index];
-                let sure = confirm(`⚠️ Biztosan törölni szeretnéd ezt a párt: ${pairToDelete.direction} ${pairToDelete.number}? ⚠️`);
-
-                if (sure) {
-                    db.pairs.splice(index, 1); // kivágjuk
-                    saveDatabase(db);
-                    showMessage(`${pairToDelete.direction} ${pairToDelete.number} páros sikeresen törölve! 🗑️`, false);
-                    renderTable();
-                }
-            }
-
-        }
-
-        renderTable();
-    </script>
-</body>
-
+    <script src="js/pages/names.js"></script>
+  </body>
 </html>

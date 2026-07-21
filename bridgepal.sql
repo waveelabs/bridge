@@ -26,6 +26,7 @@ USE `bridgepal`;
 
 --
 -- Tábla szerkezet ehhez a táblához `boards`
+-- erre nem biztos hogy szükség van
 --
 
 CREATE TABLE IF NOT EXISTS `boards` (
@@ -40,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `boards` (
 
 --
 -- Tábla szerkezet ehhez a táblához `board_results`
+-- kell egy rögzítő mező, hogy ki rögzítette az eredményt
 --
 
 CREATE TABLE IF NOT EXISTS `board_results` (

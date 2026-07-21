@@ -1,146 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="hu">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vezérlőpult</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/png" sizes="192x192" href="images/logo.png">
-    <link rel="apple-touch-icon" href="images/logo.png">
-    <link rel="manifest" href="manifest.json">
-    </link>
-</head>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
 
-
-<body>
-
+  <body>
     <div class="container">
-        <h1>Vezérlőpult</h1>
+      <h1>Vezérlőpult</h1>
 
-        <div class="card" id="sessionInfo" style="background-color: #f0f5fa; border-color: #1857b0;">
-            <p>Verseny adatainak betöltése...</p>
+      <div
+        class="card"
+        id="sessionInfo"
+        style="background-color: #f0f5fa; border-color: #1857b0"
+      >
+        <p>Verseny adatainak betöltése...</p>
+      </div>
+
+      <button
+        id="calculateBtn"
+        class="btn"
+        style="background-color: #2b7a0b; margin-bottom: 25px"
+      >
+        Eredmény kiszámítása
+      </button>
+
+      <div id="standingsSection" style="display: none">
+        <h2>Végeredmény</h2>
+
+        <div
+          class="card"
+          style="border-color: #2b7a0b; background-color: #f0fdf0"
+        >
+          <h3 style="color: #2b7a0b; margin-top: 0">N-S nyertesek</h3>
+          <div id="nsStandings"></div>
         </div>
 
-        <button id="calculateBtn" class="btn" style="background-color: #2b7a0b; margin-bottom: 25px;">
-            Eredmény kiszámítása
-        </button>
-
-        <div id="standingsSection" style="display: none;">
-            <h2>Végeredmény</h2>
-
-            <div class="card" style="border-color: #2b7a0b; background-color: #f0fdf0;">
-                <h3 style="color: #2b7a0b; margin-top: 0;">N-S nyertesek</h3>
-                <div id="nsStandings"></div>
-            </div>
-
-            <div class="card" style="border-color: #1857b0; background-color: #f0f5fa;">
-                <h3 style="color: #1857b0; margin-top: 0;">E-W nyertesek</h3>
-                <div id="ewStandings"></div>
-            </div>
-
-            <hr style="border: 2px solid #cccccc; margin-bottom: 25px;">
+        <div
+          class="card"
+          style="border-color: #1857b0; background-color: #f0f5fa"
+        >
+          <h3 style="color: #1857b0; margin-top: 0">E-W nyertesek</h3>
+          <div id="ewStandings"></div>
         </div>
 
+        <hr style="border: 2px solid #cccccc; margin-bottom: 25px" />
+      </div>
 
-        <h2>Beérkezett eredmények:</h2>
-        <div id="resultsList"></div>
+      <h2>Beérkezett eredmények:</h2>
+      <div id="resultsList"></div>
 
+      <button
+        id="resetBtn"
+        class="btn"
+        style="background-color: #cc0000; margin-bottom: 20px"
+      >
+        Verseny törlése
+      </button>
 
-        <button id="resetBtn" class="btn" style="background-color: #cc0000; margin-bottom: 20px;">Verseny
-            törlése</button>
+      <a href="index.html" class="btn">Vissza a főoldalra</a>
 
-
-        <a href="index.html" class="btn">Vissza a főoldalra</a>
-
-        <div style="font-size: smaller; text-align: center;">
-            built with ♥️ by wavee.labs 🌊
-        </div>
+      <div style="font-size: smaller; text-align: center">
+        built with ♥️ by wavee.labs 🌊
+      </div>
     </div>
 
     <script src="js/mock-data.js"></script>
     <script src="js/utils.js"></script>
-
-
-    <script>
-
-        directorLogin();
-
-        //setup
-
-        let db = getDatabase();
-
-        if (db === null) {
-            document.getElementById("resetBtn").disabled = true;
-            document.getElementById("calculateBtn").style.display = "none";
-        }
-        else {
-            document.getElementById("sessionInfo").innerHTML =
-                "<p><strong>Asztalok: </strong>" + db.tableCount + "\t<strong>Leosztások: </strong>" + db.boardCount + "</p>" +
-                "<p><strong>Beküldött eredmények: </strong>" + db.results.length + " / " + db.tableCount * db.boardCount + "</p>"
-        }
-
-        let resultsContainer = document.getElementById("resultsList");
-
-        if (db.results.length === 0) {
-            resultsContainer.innerHTML = "<div class='card'><p>Még nem érkezett eredmény.</p></div>";
-            document.getElementById("calculateBtn").disabled = true;
-        }
-        else {
-            renderIncomingResults();
-        }
-
-        // render results
-        function renderIncomingResults() {
-            let resultsContainer = document.getElementById("resultsList");
-            let htmlToInsert = "";
-
-            for (let i = 0; i < db.results.length; i++) {
-                let game = db.results[i];
-
-                let doubledText = "";
-                if (game.doubled !== "none") {
-                    doubledText = " " + game.doubled;
-                }
-
-                //megkeressük a neveket
-
-                const ns = db.pairs?.find(p => p.direction === "N-S" && p.number == game.pairNS);
-                const ew = db.pairs?.find(p => p.direction === "E-W" && p.number == game.pairEW);
-
-                const nsName = ns ? ` (${ns.player1} és ${ns.player2})` : "";
-                const ewName = ew ? ` (${ew.player1} és ${ew.player2})` : "";
-
-                //html kartya
-                htmlToInsert += "<div class='card' style='line-height: 1'>";
-                htmlToInsert += "<p><strong style='color: #1857b0'>" + game.table + ". asztal, " + game.board + ". leosztás</strong></p>";
-                htmlToInsert += "<p><strong>N-S " + game.pairNS + "</strong>" + nsName + "</p><p><strong>E-W " + game.pairEW + "</strong>" + ewName + "</p>";
-                htmlToInsert += "<p><strong>Licit: </strong>" + game.level + game.suit + doubledText + " felvevő: " + game.declarer + "</p>";
-                htmlToInsert += "<p><strong>Eredmény: </strong>" + game.tricks + "</p>";
-                htmlToInsert += "</div>";
-            }
-
-            resultsContainer.innerHTML = htmlToInsert;
-        }
-
-        //CALCULATE SCORE
-
-        //CALCULATE MATCHPOINTS
-
-        //delete data
-        document.getElementById("resetBtn").addEventListener("click", onResetClick);
-
-        function onResetClick() {
-            let sure = confirm("⚠️ Biztosan törölni szeretnéd ezt a versenyt? Minden eredmény elvész! ⚠️");
-            if (sure) {
-                clearDatabase();
-                window.location.href = "index.html";
-            }
-        }
-
-    </script>
-
-
-</body>
-
+    <script src="js/pages/director-dashboard.js"></script>
+  </body>
 </html>

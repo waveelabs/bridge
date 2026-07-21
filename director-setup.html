@@ -1,73 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="hu">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Verseny létrehozása</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/png" sizes="192x192" href="images/logo.png">
-    <link rel="apple-touch-icon" href="images/logo.png">
-    <link rel="manifest" href="manifest.json">
-    </link>
-</head>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <h1>Verseny létrehozása</h1>
+      <h1>Verseny létrehozása</h1>
 
-        <div class="card" id="setupDetails">
-            <label for="sessionName"><strong>Verseny neve:</strong></label>
-            <input type="text" id="sessionName" value="Verseny">
+      <div class="card" id="setupDetails">
+        <label for="sessionName"><strong>Verseny neve:</strong></label>
+        <input type="text" id="sessionName" value="Verseny" />
 
-            <label for="tableCount"><strong>Asztalok száma:</strong></label>
-            <input type="number" id="tableCount" min="1" value="4">
+        <label for="tableCount"><strong>Asztalok száma:</strong></label>
+        <input type="number" id="tableCount" min="1" value="4" />
 
-            <label for="boardCount"><strong>Leosztások száma:</strong></label>
-            <input type="number" id="boardCount" min="1" max="24" value="4">
-        </div>
+        <label for="boardCount"><strong>Leosztások száma:</strong></label>
+        <input type="number" id="boardCount" min="1" max="24" value="4" />
+      </div>
 
-        <div id="formMessage" class="warning-box" style="display: none; margin-bottom: 20px;"></div>
+      <div
+        id="formMessage"
+        class="warning-box"
+        style="display: none; margin-bottom: 20px"
+      ></div>
 
+      <button id="createBtn" class="btn" style="background-color: #2b7a0b">
+        Verseny létrehozása
+      </button>
+      <a href="index.html" class="btn">Vissza a főoldalra</a>
 
-        <button id="createBtn" class="btn" style="background-color: #2b7a0b;">Verseny létrehozása</button>
-        <a href="index.html" class="btn">Vissza a főoldalra</a>
-
-        <div style="font-size: smaller; text-align: center;">
-            built with ♥️ by wavee.labs 🌊
-        </div>
+      <div style="font-size: smaller; text-align: center">
+        built with ♥️ by wavee.labs 🌊
+      </div>
     </div>
 
     <script src="js/mock-data.js"></script>
     <script src="js/utils.js"></script>
-
-
-    <script>
-
-        directorLogin();
-
-        let createButton = document.getElementById("createBtn");
-        let setupDetails = document.getElementById("setupDetails");
-
-        createButton.addEventListener("click", onCreateClick);
-
-        function onCreateClick() {
-            let name = document.getElementById("sessionName").value;
-            let tables = document.getElementById("tableCount").value;
-            let boards = document.getElementById("boardCount").value;
-
-            if (name.trim() === "") {
-                name = "Névtelen verseny";
-                //robinak valami alap név h ne kapjon agyfaszt
-            }
-
-            createTournament(name, tables, boards);
-            showMessage("A verseny sikeresen létrehozva! 🎉", false);
-            setupDetails.style.display = "none";
-            createButton.style.display = "none";
-
-        }
-    </script>
-</body>
-
+    <script src="js/pages/director-setup.js"></script>
+  </body>
 </html>
