@@ -20,7 +20,7 @@ if (db === null) {
     namesLink.removeAttribute("href");
     namesLink.style.pointerEvents = "none";
 
-    finalMessage += "😿 Jelenleg nincs aktív verseny.";
+    finalMessage += "❌ Jelenleg nincs aktív verseny.";
 }
 else {
     finalMessage += "✅ " + db.name + " aktív |\nAsztalok: " + db.tableCount + "\t| Leosztások: " + db.boardCount;
