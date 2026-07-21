@@ -51,7 +51,7 @@ function renderIncomingResults() {
 
         htmlToInsert += "<div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;'>";
         htmlToInsert += "<strong style='color: #1857b0; font-size: 1.1em;'>" + game.table + ". asztal, " + game.board + ". leosztás</strong>";
-        htmlToInsert += "<a href='table.html?table=" + game.table + "&board=" + game.board + "' style='background-color: #d35400; color: white; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold;'>✏️ Módosítás</a>";
+        htmlToInsert += "<a href='table.html?table=" + game.table + "&board=" + game.board + "' style='background-color: #cc0000; color: white; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 22px; font-weight: bold;'>✏️</a>";
         htmlToInsert += "</div>";
         htmlToInsert += "<p><strong>Rögzítette: </strong> " + game.recorder + "</p>"
         htmlToInsert += "<p><strong>N-S " + game.pairNS + "</strong>" + nsName + "</p><p><strong>E-W " + game.pairEW + "</strong>" + ewName + "</p>";
