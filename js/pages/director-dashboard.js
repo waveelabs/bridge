@@ -11,7 +11,7 @@ if (db === null) {
 }
 else {
     document.getElementById("sessionInfo").innerHTML =
-        "<p><strong>Asztalok: </strong>" + db.tableCount + "\t<strong>Leosztások: </strong>" + db.boardCount + "</p>" +
+        "<p><strong>Asztalok: </strong>" + db.tableCount + "\t| <strong>Leosztások: </strong>" + db.boardCount + "</p>" +
         "<p><strong>Beküldött eredmények: </strong>" + db.results.length + " / " + db.tableCount * db.boardCount + "</p>"
 }
 
