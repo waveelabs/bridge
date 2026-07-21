@@ -2,7 +2,7 @@ import {
   calculateScore,
   calculateMatchpoints,
   calculateVulnerability,
-} from "/js/calculate.js";
+} from "../calculate.js";
 
 // submit button magic
 let submitBtn = document.getElementById("submitBtn");
@@ -27,8 +27,8 @@ function frissitSebezhetoseg() {
     // Szép magyar kiírás (pl. "Vulnerable" -> Sebezhető, "None" -> Nem sebezhető)
     const szoftveresMegjelenites =
       calculatedVuln === "yes" ||
-      calculatedVuln === true ||
-      calculatedVuln === "vul"
+        calculatedVuln === true ||
+        calculatedVuln === "vul"
         ? "Sebezhető (B)"
         : "Nem sebezhető (M)";
 
@@ -60,6 +60,7 @@ function onSubmitClick() {
   let declarerVal = document.getElementById("declarer").value;
   let calculatedVuln = calculateVulnerability(boardVal, declarerVal);
   let resultData = {
+    recorder: document.getElementById("recorderName").value.trim(),
     table: document.getElementById("tableNum").value,
     board: boardVal,
     pairNS: document.getElementById("nsPair").value,
@@ -74,12 +75,13 @@ function onSubmitClick() {
 
   //validáció
   if (
+    resultData.recorder === "" ||
     resultData.pairNS === "" ||
     resultData.pairEW === "" ||
     resultData.tricks === ""
   ) {
     showMessage(
-      "Kérlek töltsd ki a N-S pár, E-W pár és az Eredmény mezőket!",
+      "Kérlek töltsd ki a N-S pár, E-W pár, Rögzítő neve és az Eredmény mezőket!",
       true,
     );
     return;
@@ -108,7 +110,8 @@ function onSubmitClick() {
     `Licit: ${resultData.level}${resultData.suit}${doubleText} (Felvevő: ${resultData.declarer})\n` +
     `Felvevő szkórhelyzete: ${resultData.isVulnerable === "no" ? "M" : "B"}\n` +
     `Eredmény: ${resultData.tricks}\n` +
-    `Pontszám: ${score}\n\n` +
+    `Pontszám: ${score}\n` +
+    `Rőgzítő: ${resultData.recorder}\n\n` +
     `Minden adat helyes?`;
 
   let sure = window.confirm(summaryText);
@@ -145,10 +148,10 @@ function onSubmitClick() {
     saveDatabase(db);
     showMessage(
       "Hiba javítva! ✅ " +
-        resultData.board +
-        ". leosztás, " +
-        resultData.table +
-        ". asztal sikeresen frissítve! 🎉",
+      resultData.board +
+      ". leosztás, " +
+      resultData.table +
+      ". asztal sikeresen frissítve! 🎉",
       false,
     );
   } else {
@@ -157,9 +160,9 @@ function onSubmitClick() {
     saveDatabase(db);
     showMessage(
       resultData.board +
-        ". leosztás, " +
-        resultData.table +
-        ". asztal eredménye sikeresen beküldve! 🎉",
+      ". leosztás, " +
+      resultData.table +
+      ". asztal eredménye sikeresen beküldve! 🎉",
       false,
     );
 

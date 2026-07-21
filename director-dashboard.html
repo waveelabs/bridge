@@ -1,74 +1,58 @@
 <!doctype html>
 <html lang="hu">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vezérlőpult</title>
-    <link rel="stylesheet" href="css/styles.css" />
-  </head>
 
-  <body>
-    <div class="container">
-      <h1>Vezérlőpult</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vezérlőpult</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
 
-      <div
-        class="card"
-        id="sessionInfo"
-        style="background-color: #f0f5fa; border-color: #1857b0"
-      >
-        <p>Verseny adatainak betöltése...</p>
-      </div>
+<body>
+  <div class="container">
+    <h1>Vezérlőpult</h1>
 
-      <button
-        id="calculateBtn"
-        class="btn"
-        style="background-color: #2b7a0b; margin-bottom: 25px"
-      >
-        Eredmény kiszámítása
-      </button>
-
-      <div id="standingsSection" style="display: none">
-        <h2>Végeredmény</h2>
-
-        <div
-          class="card"
-          style="border-color: #2b7a0b; background-color: #f0fdf0"
-        >
-          <h3 style="color: #2b7a0b; margin-top: 0">N-S nyertesek</h3>
-          <div id="nsStandings"></div>
-        </div>
-
-        <div
-          class="card"
-          style="border-color: #1857b0; background-color: #f0f5fa"
-        >
-          <h3 style="color: #1857b0; margin-top: 0">E-W nyertesek</h3>
-          <div id="ewStandings"></div>
-        </div>
-
-        <hr style="border: 2px solid #cccccc; margin-bottom: 25px" />
-      </div>
-
-      <h2>Beérkezett eredmények:</h2>
-      <div id="resultsList"></div>
-
-      <button
-        id="resetBtn"
-        class="btn"
-        style="background-color: #cc0000; margin-bottom: 20px"
-      >
-        Verseny törlése
-      </button>
-
-      <a href="index.html" class="btn">Vissza a főoldalra</a>
-
-      <div style="font-size: smaller; text-align: center">
-        built with ♥️ by wavee.labs 🌊
-      </div>
+    <div class="card" id="sessionInfo" style="background-color: #f0f5fa; border-color: #1857b0">
+      <p>Verseny adatainak betöltése...</p>
     </div>
 
-    <script src="js/mock-data.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/pages/director-dashboard.js"></script>
-  </body>
+    <button id="calculateBtn" class="btn" style="background-color: #2b7a0b; margin-bottom: 25px">
+      Eredmény kiszámítása
+    </button>
+
+    <div id="standingsSection" style="display: none">
+      <h2>Végeredmény</h2>
+
+      <div class="card" style="border-color: #2b7a0b; background-color: #f0fdf0">
+        <h3 style="color: #2b7a0b; margin-top: 0">N-S nyertesek</h3>
+        <div id="nsStandings"></div>
+      </div>
+
+      <div class="card" style="border-color: #1857b0; background-color: #f0f5fa">
+        <h3 style="color: #1857b0; margin-top: 0">E-W nyertesek</h3>
+        <div id="ewStandings"></div>
+      </div>
+
+      <hr style="border: 2px solid #cccccc; margin-bottom: 25px" />
+    </div>
+
+    <h2>Beérkezett eredmények:</h2>
+    <div id="resultsList"></div>
+
+    <button id="resetBtn" class="btn" style="background-color: #cc0000; margin-bottom: 20px">
+      Verseny törlése
+    </button>
+
+    <a href="index.html" class="btn">Vissza a főoldalra</a>
+
+    <div style="font-size: smaller; text-align: center">
+      built with ♥️ by wavee.labs 🌊
+    </div>
+  </div>
+
+  <script src="js/mock-data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/pages/director-dashboard.js"></script>
+</body>
+
 </html>

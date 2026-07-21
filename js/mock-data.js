@@ -44,5 +44,3 @@ function createTournament(name, tableCount, boardCount) {
 function clearDatabase() {
     localStorage.removeItem(STORAGE_KEY);
 }
-
-git
