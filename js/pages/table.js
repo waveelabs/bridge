@@ -190,3 +190,35 @@ function doubledConverter(value) {
   }
   return 1;
 }
+
+function loadForEdit() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const editTable = urlParams.get('table');
+  const editBoard = urlParams.get('board');
+
+  if (editTable && editBoard) {
+    let db = getDatabase();
+    // megkeressük az eredményt a az adatb-ben
+
+    let gameToEdit = db.results.find(r => r.table === editTable && r.board === editBoard);
+
+    if (gameToEdit) {
+      document.getElementById("tableNum").value = gameToEdit.table;
+      document.getElementById("boardNum").value = gameToEdit.board;
+      document.getElementById("nsPair").value = gameToEdit.pairNS;
+      document.getElementById("ewPair").value = gameToEdit.pairEW;
+      document.getElementById("declarer").value = gameToEdit.declarer;
+      document.getElementById("contractDoubled").value = gameToEdit.doubled;
+      document.getElementById("contractLevel").value = gameToEdit.level;
+      document.getElementById("contractSuit").value = gameToEdit.suit;
+      document.getElementById("tricksTaken").value = gameToEdit.tricks;
+      document.getElementById("recorderName").value = "director";
+    }
+
+    frissitSebezhetoseg();
+
+    showMessage("Módosító mód: " + editTable + ". asztal, " + editBoard + ". leosztás betöltve.", false);
+  }
+}
+
+loadForEdit();

@@ -53,7 +53,7 @@ function renderIncomingResults() {
         htmlToInsert += "<p><strong>N-S " + game.pairNS + "</strong>" + nsName + "</p><p><strong>E-W " + game.pairEW + "</strong>" + ewName + "</p>";
         htmlToInsert += "<p><strong>Licit: </strong>" + game.level + game.suit + doubledText + " felvevő: " + game.declarer + "</p>";
         htmlToInsert += "<p><strong>Eredmény: </strong>" + game.tricks + "</p>";
-        htmlToInsert += "</div>";
+        htmlToInsert += "<a href='table.html?table=" + game.table + "&board=" + game.board + "' style='background-color: #d35400; color: white; padding: 6px 14px; border-radius: 6px; text-decoration: none; font-size: 16px; font-weight: bold;'>Módosítás ✏️</a>"; htmlToInsert += "</div>";
     }
 
     resultsContainer.innerHTML = htmlToInsert;
