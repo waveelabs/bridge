@@ -57,6 +57,7 @@ function renderIncomingResults() {
         htmlToInsert += "<p><strong>N-S " + game.pairNS + "</strong>" + nsName + "</p><p><strong>E-W " + game.pairEW + "</strong>" + ewName + "</p>";
         htmlToInsert += "<p><strong>Licit: </strong>" + game.level + game.suit + doubledText + " felvevő: " + game.declarer + "</p>";
         htmlToInsert += "<p><strong>Eredmény: </strong>" + game.tricks + "</p>";
+        htmlToInsert += "</div>";
     }
 
     resultsContainer.innerHTML = htmlToInsert;
