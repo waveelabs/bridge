@@ -46,7 +46,7 @@ declarerSelect.addEventListener("change", frissitSebezhetoseg);
 // Első betöltéskor is fusson le, hogy ne legyen üres a mező
 frissitSebezhetoseg();
 
-function onSubmitClick() {
+async function onSubmitClick() {
   // database
   let db = getDatabase();
   if (db === null) {
@@ -104,7 +104,7 @@ function onSubmitClick() {
 
   //öszefoglaló szöveg
   let summaryText =
-    `Beküldés megerősítése:\n\n` +
+    `<strong>Beküldés megerősítése:</strong>\n\n` +
     `Asztal: ${resultData.table} | Leosztás: ${resultData.board}\n` +
     `N-S: ${resultData.pairNS} | E-W: ${resultData.pairEW}\n` +
     `Licit: ${resultData.level}${resultData.suit}${doubleText} (Felvevő: ${resultData.declarer})\n` +
@@ -112,9 +112,9 @@ function onSubmitClick() {
     `Eredmény: ${resultData.tricks}\n` +
     `Pontszám: ${score}\n` +
     `Rőgzítő: ${resultData.recorder}\n\n` +
-    `Minden adat helyes?`;
+    `<strong>Minden adat helyes?</strong>`;
 
-  let sure = window.confirm(summaryText);
+  let sure = await BridgeModal.confirm(summaryText, "primary");
   if (!sure) {
     return;
   }
@@ -129,8 +129,8 @@ function onSubmitClick() {
       pastGame.board === resultData.board
     ) {
       //felülírja, ha leokézzák (sok figyelmeztetéssel)
-      let answer = window.confirm(
-        "⚠️ Ezzel felülírod a már beküldött adatot! Biztosan folytatod? ⚠️",
+      let answer = await BridgeModal.confirm(
+        "Ezzel felülírod a már beküldött adatot! Biztosan folytatod?", "danger"
       );
       if (answer) {
         db.results[i] = resultData;

@@ -2,7 +2,7 @@
 //Adatok mentése
 document.getElementById("addPairBtn").addEventListener("click", onAddPair);
 
-function onAddPair() {
+async function onAddPair() {
     let db = getDatabase();
     if (db === null) {
         showMessage("Még nincs aktív verseny!", true);
@@ -29,7 +29,7 @@ function onAddPair() {
     let existingIndex = db.pairs.findIndex(p => p.direction === direction && p.number === pNumber);
 
     if (existingIndex !== -1) {
-        let sure = confirm("⚠️ Ez a párszám már létezik ezen a vonalon. Bisztosan felülírod az eddigi neveket? ⚠️");
+        let sure = await BridgeModal.confirm("Ez a párszám már létezik ezen a vonalon. Bisztosan felülírod az eddigi neveket?", "danger");
         if (sure) {
             db.pairs[existingIndex] = pairData;
         } else {
@@ -74,17 +74,17 @@ function renderTable() {
     }
 }
 
-function deletePair(index) {
+async function deletePair(index) {
 
     let db = getDatabase();
     if (db && db.pairs[index]) {
         let pairToDelete = db.pairs[index];
-        let sure = confirm(`⚠️ Biztosan törölni szeretnéd ezt a párt: ${pairToDelete.direction} ${pairToDelete.number}? ⚠️`);
+        let sure = await BridgeModal.confirm(`Biztosan törölni szeretnéd ezt a párt: ${pairToDelete.direction} ${pairToDelete.number}?`, "danger");
 
         if (sure) {
             db.pairs.splice(index, 1); // kivágjuk
             saveDatabase(db);
-            showMessage(`${pairToDelete.direction} ${pairToDelete.number} páros sikeresen törölve! 🗑️`, false);
+            showMessage(`${pairToDelete.direction} ${pairToDelete.number} páros sikeresen törölve!`, false);
             renderTable();
         }
     }

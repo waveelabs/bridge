@@ -63,15 +63,11 @@ function renderIncomingResults() {
     resultsContainer.innerHTML = htmlToInsert;
 }
 
-//CALCULATE SCORE
-
-//CALCULATE MATCHPOINTS
-
 //delete data
 document.getElementById("resetBtn").addEventListener("click", onResetClick);
 
-function onResetClick() {
-    let sure = confirm("⚠️ Biztosan törölni szeretnéd ezt a versenyt? Minden eredmény elvész! ⚠️");
+async function onResetClick() {
+    let sure = await BridgeModal.confirm("Biztosan törölni szeretnéd ezt a versenyt? Minden eredmény elvész!", "danger");
     if (sure) {
         clearDatabase();
         window.location.href = "index.html";
