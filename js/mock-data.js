@@ -1,6 +1,6 @@
 // nyinyinyinyi - have fun
-
-const STORAGE_KEY = 'bridge_database';
+const currentClub = sessionStorage.getItem("activeClubId") || "default";
+const STORAGE_KEY = 'bridge_database_' + currentClub;
 
 
 //olvasás

@@ -1,3 +1,15 @@
+function checkLogin() {
+
+    if (window.location.href.includes("login.html")) {
+        return;
+    }
+    if (!sessionStorage.getItem("activeClubId")) {
+        window.location.href = "login.html";
+    }
+}
+checkLogin();
+
+
 function showMessage(text, isError) {
     let msgBox = document.getElementById("formMessage");
     msgBox.innerText = text;
