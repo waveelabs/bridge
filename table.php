@@ -1,3 +1,6 @@
+<?php
+  include __DIR__ . '/php/table_db.php';
+?>
 <!doctype html>
 <html lang="hu">
 

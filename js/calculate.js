@@ -1,6 +1,7 @@
 //calculateScore
 //calculateMatchpoints
 //calculateVulnerability
+//doubledConverter
 //tesztelés -- nem valami részletes, még valszeg a konrás és rekonrás eseteket jó lenne lefedni
 
 let ScorePage = {
@@ -214,6 +215,17 @@ export function calculateVulnerability(board, declarer) {
   if (declarer === "E" || declarer === "W") {
     return ew;
   }
+}
+
+export function doubledConverter(value) {
+  if (value === "none") {
+    return 1;
+  } else if (value === "X") {
+    return 2;
+  } else if (value === "XX") {
+    return 4;
+  }
+  return 1;
 }
 
 //tesztek
