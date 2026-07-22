@@ -28,8 +28,8 @@ function frissitSebezhetoseg() {
     // Szép magyar kiírás (pl. "Vulnerable" -> Sebezhető, "None" -> Nem sebezhető)
     const szoftveresMegjelenites =
       calculatedVuln === "yes" ||
-      calculatedVuln === true ||
-      calculatedVuln === "vul"
+        calculatedVuln === true ||
+        calculatedVuln === "vul"
         ? "Sebezhető (B)"
         : "Nem sebezhető (M)";
 
@@ -149,7 +149,6 @@ async function onSubmitClick() {
   }
 
   //sima mentés
-  db.results.push(resultData);
   saveDatabase(db);
 
   let DataToSave = {
@@ -185,9 +184,9 @@ async function onSubmitClick() {
       if (data.success) {
         showMessage(
           resultData.board +
-            ". leosztás, " +
-            resultData.table +
-            ". asztal eredménye sikeresen beküldve! 🎉",
+          ". leosztás, " +
+          resultData.table +
+          ". asztal eredménye sikeresen beküldve! 🎉",
           false,
         );
 
@@ -239,10 +238,10 @@ function loadForEdit() {
 
     showMessage(
       "Módosító mód: " +
-        editTable +
-        ". asztal, " +
-        editBoard +
-        ". leosztás betöltve.",
+      editTable +
+      ". asztal, " +
+      editBoard +
+      ". leosztás betöltve.",
       false,
     );
   }
