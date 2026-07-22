@@ -2,6 +2,7 @@ import {
   calculateScore,
   calculateMatchpoints,
   calculateVulnerability,
+  doubledConverter,
 } from "../calculate.js";
 
 // submit button magic
@@ -27,8 +28,8 @@ function frissitSebezhetoseg() {
     // Szép magyar kiírás (pl. "Vulnerable" -> Sebezhető, "None" -> Nem sebezhető)
     const szoftveresMegjelenites =
       calculatedVuln === "yes" ||
-        calculatedVuln === true ||
-        calculatedVuln === "vul"
+      calculatedVuln === true ||
+      calculatedVuln === "vul"
         ? "Sebezhető (B)"
         : "Nem sebezhető (M)";
 
@@ -143,64 +144,83 @@ async function onSubmitClick() {
     }
   }
 
-  if (foundMistake === true) {
-    //felül akarja írni
-    saveDatabase(db);
-    showMessage(
-      "Hiba javítva! ✅ " +
-      resultData.board +
-      ". leosztás, " +
-      resultData.table +
-      ". asztal sikeresen frissítve! 🎉",
-      false,
-    );
-  } else {
-    //sima mentés
+  if (!foundMistake) {
     db.results.push(resultData);
-    saveDatabase(db);
-    showMessage(
-      resultData.board +
-      ". leosztás, " +
-      resultData.table +
-      ". asztal eredménye sikeresen beküldve! 🎉",
-      false,
-    );
-
-    // kövi board a kényelemért
-    document.getElementById("boardNum").value = parseInt(resultData.board) + 1;
   }
 
-  //letisztítjuk a formot
-  document.getElementById("tricksTaken").value = "";
+  //sima mentés
+  db.results.push(resultData);
+  saveDatabase(db);
 
-  //frissítés
-  frissitSebezhetoseg();
+  let DataToSave = {
+    board_id: resultData.board,
+    table_number: resultData.table,
+    pair_ns: resultData.pairNS,
+    pair_ew: resultData.pairEW,
+    declarer: resultData.declarer,
+    contract_amount: resultData.level,
+    contract_suite: resultData.suit,
+    doubled: doubledConverter(resultData.doubled),
+    tricks_result: resultData.tricks,
+    ns_score: score[0],
+    ew_score: score[1],
+    recorder: resultData.recorder,
+  };
 
-  //legörgetünk
-  window.scrollTo(0, document.body.scrollHeight);
-}
+  // Adatok küldése a PHP fájlnak
+  fetch("/bridge/php/table_db.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(DataToSave), // JSON szöveggé alakítjuk az objektumot
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Szerver hiba (" + response.status + ")");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (data.success) {
+        showMessage(
+          resultData.board +
+            ". leosztás, " +
+            resultData.table +
+            ". asztal eredménye sikeresen beküldve! 🎉",
+          false,
+        );
 
-function doubledConverter(value) {
-  if (value === "none") {
-    return 1;
-  } else if (value === "X") {
-    return 2;
-  } else if (value === "XX") {
-    return 4;
-  }
-  return 1;
+        // kövi board a kényelemért
+        document.getElementById("boardNum").value =
+          parseInt(resultData.board) + 1;
+
+        //letisztítjuk a formot
+        document.getElementById("tricksTaken").value = "";
+
+        //frissítés
+        frissitSebezhetoseg();
+
+        //legörgetünk
+        window.scrollTo(0, document.body.scrollHeight);
+      } else {
+        showMessage("Szerver hiba: " + data.message, true);
+      }
+    });
 }
 
 function loadForEdit() {
   const urlParams = new URLSearchParams(window.location.search);
-  const editTable = urlParams.get('table');
-  const editBoard = urlParams.get('board');
+  const editTable = urlParams.get("table");
+  const editBoard = urlParams.get("board");
 
   if (editTable && editBoard) {
     let db = getDatabase();
     // megkeressük az eredményt a az adatb-ben
 
-    let gameToEdit = db.results.find(r => r.table === editTable && r.board === editBoard);
+    let gameToEdit = db.results.find(
+      (r) => r.table === editTable && r.board === editBoard,
+    );
 
     if (gameToEdit) {
       document.getElementById("tableNum").value = gameToEdit.table;
@@ -217,7 +237,14 @@ function loadForEdit() {
 
     frissitSebezhetoseg();
 
-    showMessage("Módosító mód: " + editTable + ". asztal, " + editBoard + ". leosztás betöltve.", false);
+    showMessage(
+      "Módosító mód: " +
+        editTable +
+        ". asztal, " +
+        editBoard +
+        ". leosztás betöltve.",
+      false,
+    );
   }
 }
 
