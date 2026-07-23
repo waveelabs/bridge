@@ -12,7 +12,6 @@ $pass = '';
 
 // mentes
 
-
 try {
     // PDO kapcsolat létrehozása
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $user, $pass, [
@@ -22,33 +21,28 @@ try {
 
     $jsonInput = file_get_contents('php://input');
     $data = json_decode($jsonInput, true);
+    $aktualisNap = date('Y-m-d');
+    $name = trim($data['name'] ?? '');
 
     if (!$data) {
         echo json_encode(['success' => false, 'message' => 'Ervenytelen adatok!']);
         exit;
     }
     //// 3. SQL INSERT lekérdezés előkészítése
-    $sql = "INSERT INTO board_results 
-            (board_id, table_number, pair_ns_id, pair_ew_id, declarer, contract_amount, contract_suite, doubled, tricks_result, ns_score, ew_score, recorder) 
+    $sql = "INSERT INTO tournaments 
+            (name, played_on, table_count, board_count, status) 
             VALUES 
-            (:board_id, :table_number, :pair_ns_id, :pair_ew_id, :declarer, :contract_amount, :contract_suite, :doubled, :tricks_result, :ns_score, :ew_score, :recorder)";
-
+            (:name, :played_on, :table_count, :board_count, :status)";
     $stmt = $pdo->prepare($sql);
 
     //Paraméterek behelyettesítése és végrehajtás
     $stmt->execute([
-        ':board_id'         => $data['board_id'],
-        ':table_number'     => $data['table_number'],
-        ':pair_ns_id'       => $data['pair_ns'],
-        ':pair_ew_id'       => $data['pair_ew'],
-        ':declarer'         => $data['declarer'],
-        ':contract_amount'  => $data['contract_amount'],
-        ':contract_suite'   => $data['contract_suite'],
-        ':doubled'          => $data['doubled'],
-        ':tricks_result'    => $data['tricks_result'],
-        ':ns_score'         => $data['ns_score'],
-        ':ew_score'         => $data['ew_score'],
-        ':recorder'         => $data['recorder']
+        ':name'         => !empty($name) ? $name : $aktualisNap,
+        ':played_on'    => $aktualisNap,
+        ':table_count'  => $data['table_count'],
+        ':board_count'  => $data['board_count'],
+        ':status'       => 1
+
     ]);
 
     // Válasz a JS-nek
