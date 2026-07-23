@@ -22,7 +22,7 @@ function onCreateClick() {
     board_count: boards,
   };
 
-  fetch("/bridge/php/table_db.php", {
+  fetch("/bridge/php/director-setup.php", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -42,10 +42,6 @@ function onCreateClick() {
         // Sikeres mentés esetén ez fut le:
         showMessage("Sikeres mentés!", false);
       }
-    })
-    .catch((error) => {
-      console.error("Fetch hiba:", error);
-      showMessage("Hálózati hiba történt!", true);
     });
 
   showMessage("A verseny sikeresen létrehozva! 🎉", false);
