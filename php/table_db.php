@@ -1,24 +1,19 @@
 
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-header('Content-Type: application/json');
-
-$host = 'localhost';
-$dbname = 'bridgepal';
-$user = 'root';
-$pass = '';
 
 
 // mentes
 
 
 try {
-    // PDO kapcsolat létrehozása
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $user, $pass, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-    ]);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+    session_start();
+    require_once 'db.php';
+    
+    header('Content-Type: application/json');
+
 
     $jsonInput = file_get_contents('php://input');
     $data = json_decode($jsonInput, true);
@@ -53,10 +48,11 @@ try {
 
     // Válasz a JS-nek
     echo json_encode(['success' => true, 'message' => 'Adat sikeresen elmentve!']);
+}
 
 } catch (PDOException $e) {
     // Hiba esetén visszaküldjük a hibaüzenetet
     echo json_encode(['success' => false, 'message' => 'Adatbázis hiba: ' . $e->getMessage()]);
 }
-}
+
 ?>

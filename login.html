@@ -1,67 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="hu">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Belépés</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
 
-<body>
-    <div class="container" style="margin-top: 50px;">
-        <h1 style="text-align: center; border-bottom: none; font-size: 48px; margin-bottom: 10px;">
-            BridgePal
-        </h1>
-        <p style="text-align: center; margin-bottom: 40px; font-size: 24px; color: #555;">
-            Üdvözlünk! Kérlek add meg a klubod azonosítóját a belépéshez!
-        </p>
+  <body>
+    <div class="container" style="margin-top: 50px">
+      <h1
+        style="
+          text-align: center;
+          border-bottom: none;
+          font-size: 48px;
+          margin-bottom: 10px;
+        "
+      >
+        BridgePal
+      </h1>
+      <p
+        style="
+          text-align: center;
+          margin-bottom: 40px;
+          font-size: 24px;
+          color: #555;
+        "
+      >
+        Üdvözlünk! Kérlek add meg a klubod azonosítóját a belépéshez!
+      </p>
 
-        <div class="card" style="max-width: 500px; margin: 0 auto;">
-            <label for="clubId"><strong>Klub azonosítója:</strong></label>
-            <input type="text" id="clubId">
+      <div class="card" style="max-width: 500px; margin: 0 auto">
+        <form action="/bridge/php/login.php" method="POST">
+          <label for="clubId"><strong>Klub azonosítója:</strong></label>
+          <input type="text" id="clubId" name="club_id" required />
 
-            <div id="formMessage" class="warning-box" style="display: none; margin-bottom: 20px;">
-            </div>
+          <div
+            id="formMessage"
+            class="warning-box"
+            style="display: none; margin-bottom: 20px"
+          ></div>
 
-            <button id="enterClub" class="btn" style="margin-top: 10px;">Tovább</button>
-        </div>
+          <button id="enterClub" class="btn" style="margin-top: 10px">
+            Tovább
+          </button>
+        </form>
+      </div>
 
-        <div style="font-size: smaller; text-align: center">
-            built with ♥️ by wavee.labs 🌊
-        </div>
-
-        <script src="js/utils.js"></script>
+      <div style="font-size: smaller; text-align: center">
+        built with ♥️ by wavee.labs 🌊
+      </div>
 
     </div>
-
-    <script>
-        document.getElementById("enterClub").addEventListener("click", onEnterClick);
-
-        const validClubs = {
-            "zebi": "Zebegényi Bridgeklub"
-        }
-
-        function onEnterClick() {
-            let clubInput = document.getElementById("clubId").value.trim();
-
-            if (clubInput === "") {
-                showMessage("Kérlek add meg a klub azonosítóját a belépéshez!", true);
-                return;
-            }
-
-            if (validClubs[clubInput]) {
-                sessionStorage.setItem("activeClubId", clubInput);
-                sessionStorage.setItem("activeClubName", validClubs[clubInput]);
-
-                window.location.href = "index.html";
-            } else {
-                showMessage("Érvénytelen azonosító!", true);
-            }
-        }
-
-    </script>
-
-</body>
-
+  </body>
 </html>
